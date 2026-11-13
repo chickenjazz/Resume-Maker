@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Template</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700;800&family=Open+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@400;500;600;700&display=block" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- ========================================================================
+       TOP TOOLBAR (Browser Only - Automatically hides when printing/saving PDF)
+       ======================================================================== -->
+  <aside class="screen-toolbar" aria-label="Resume Editor Toolbar">
+    <div class="toolbar-title">
+      <span>📄 Resume Template</span>
+      <span class="edit-status" id="saveIndicator">✓ Changes Saved</span>
+    </div>
+    <div class="toolbar-actions">
+      <button type="button" class="btn btn-secondary" id="toggleEditBtn" onclick="toggleEditMode()">
+        ✏️ Enable Edit Mode
+      </button>
+      <button type="button" class="btn btn-primary" onclick="window.print()">
+        🖨️ Print / Save as PDF
+      </button>
+      <button type="button" class="btn btn-secondary" onclick="resetToDefault()">
+        ↺ Reset
+      </button>
+    </div>
+  </aside>
+
+  <!-- ========================================================================
+       RESUME DOCUMENT
+       ======================================================================== -->
+  <main class="resume-wrapper" id="resumeDoc">
+
+    <!-- HEADER BLOCK -->
+    <header class="resume-header">
+      <!-- Full Name -->
+      <h1 class="name" id="fullName">[First Name, Middle Initial, Last Name]</h1>
+
+      <!-- Contact Information -->
+      <div class="contact-info" id="contactInfo">
+        <span class="contact-item" id="phone">[Phone Number]</span>
+        <span class="separator">|</span>
+        <a href="mailto:[EMAIL_ADDRESS]" class="contact-item" id="email">[EMAIL_ADDRESS]</a>
+        <span class="separator">|</span>
+        <a href="https://linkedin.com/in/your-linkedin" target="_blank" rel="noopener noreferrer" class="contact-item"
+          id="linkedin">linkedin.com/in/your-linkedin</a>
+      </div>
+    </header>
+
+    <!-- SECTION: SUMMARY -->
+    <section class="section" id="summarySection">
+      <h2 class="section-title">Summary</h2>
+      <p class="summary-text" id="summaryText">
+        Results-driven project and program manager with a background in cognitive psychology and
+        data analysis, aligning with SynapseCo’s mission at the intersection of cognitive science and
+        technology. Proven ability to lead end-to-end data-driven initiatives—from planning and
+        timelines to execution and delivery—across healthcare, mental health, and remote work
+        domains. Expertise in collaborating with cross-functional teams (developers, designers, QA),
+        Agile project management (Jira, Trello), data analysis (Python, sentiment analysis), and
+        stakeholder alignment. Adept at managing timelines, resources, and complex workflows to
+        deliver actionable insights on time.
+      </p>
+    </section>
+
+    <!-- SECTION: EXPERIENCE -->
+    <section class="section" id="experienceSection">
+      <h2 class="section-title">Experience</h2>
+
+      <!-- Experience Entry 1 -->
+      <article class="entry">
+        <div class="entry-header">
+          <div class="entry-title">Research Coordinator | Cognisco Labs | New York, NY</div>
+          <div class="entry-subtitle">May 2024 – Present</div>
+        </div>
+        <ul class="bullet-list">
+          <li>
+            <strong>Healthcare Industry Analysis Project:</strong> Conducted data collection, statistical analysis, and
+            reporting on healthcare/mental health trends. Identified operational risks—including data
+            inconsistencies and timeline delays—and implemented process improvements that
+            reduced data errors by 20%. Delivered final stakeholder report on employment and supply-demand dynamics.
+          </li>
+          <li>
+            <strong>SynapseFlow Cognitive Training App Launch:</strong> Defined content and technical scope for
+            cognitive training app launch. Organized participant interactions and project meetings,
+            tracking action items. Analyzed engagement via Google Analytics; created Gantt charts;
+            delivered data-driven presentations and workshops to stakeholders.
+          </li>
+          <li>
+            <strong>InsightEngine Customer Review Analysis:</strong> Collected 150+ customer reviews via Google
+            Forms; performed sentiment analysis using Python and NLTK; produced clear project
+            documentation and product recommendations.
+          </li>
+        </ul>
+      </article>
+
+      <!-- Experience Entry 2 -->
+      <article class="entry">
+        <div class="entry-header">
+          <div class="entry-title">Program Management Intern | Frisco Crisp Co | Remote</div>
+          <div class="entry-subtitle">June 2023 – August 2023</div>
+        </div>
+        <ul class="bullet-list">
+          <li>
+            Managed the planning, execution, and delivery of a data-driven customer insights initiative
+            from concept to completion, leading a cross-functional team of data analysts, product
+            managers, and marketers to analyze app usage patterns across 20,000+ users. Organized
+            Agile stand-ups and sprint planning sessions, documenting key decisions and timelines in
+            Jira.
+          </li>
+          <li>
+            Oversaw 5 concurrent marketing campaigns, coordinating cross-functional teams. Applied
+            Agile project management practices (daily stand-ups, sprint planning) using Jira. Proactively
+            tracked timelines, identified risks, mitigated issues, and reduced campaign delays by 15%.
+          </li>
+        </ul>
+      </article>
+
+      <!-- TEMPLATE HINT: To add more experience items, duplicate an <article class="entry">...</article> block above -->
+    </section>
+
+    <!-- SECTION: EDUCATION -->
+    <section class="section" id="educationSection">
+      <h2 class="section-title">Education</h2>
+
+      <!-- Education Entry 1 -->
+      <article class="entry">
+        <div class="entry-header">
+          <div class="entry-title">Bachelor of Science in Cognitive Psychology</div>
+          <div class="entry-subtitle">University of California, Irvine | Irvine, CA</div>
+          <div class="entry-subtitle">Graduated: December 2023</div>
+        </div>
+        <ul class="bullet-list">
+          <li>
+            <strong>Relevant Coursework:</strong> Statistical Methods in Psychology, Data Analysis and Visualization,
+            Research Methods, Human-Computer Interaction, Cognitive Science.
+          </li>
+          <li>
+            <strong>Capstone Project:</strong> Conducted a study on the effects of digital media consumption on
+            attention spans.
+          </li>
+          <li>
+            <strong>Awards:</strong> Dean's Honor List (4 semesters), Psi Chi National Honor Society in Psychology.
+          </li>
+        </ul>
+      </article>
+    </section>
+
+    <!-- SECTION: CERTIFICATIONS -->
+    <section class="section" id="certificationsSection">
+      <h2 class="section-title">Certifications</h2>
+      <ul class="bullet-list">
+        <li>
+          <strong>Certified ScrumMaster (CSM)</strong> – Scrum Alliance (2024)
+        </li>
+      </ul>
+    </section>
+
+    <!-- SECTION: ONLINE COURSES -->
+    <section class="section" id="onlineCoursesSection">
+      <h2 class="section-title">Online Courses</h2>
+      <ul class="bullet-list">
+        <li>Machine Learning Specialization (Coursera)</li>
+        <li>Google Data Analytics Professional Certificate (Coursera)</li>
+      </ul>
+    </section>
+
+    <!-- SECTION: PROJECTS -->
+    <section class="section" id="projectsSection">
+      <h2 class="section-title">Projects</h2>
+      <ul class="bullet-list">
+        <li>
+          <strong>Data Science Project: Multimodal Dog Emotion Classifier</strong> – Developed a dog emotion
+          classifier app using a pre-trained multimodal, open-source model. Designed text prompts
+          to analyze dog images and infer emotions and needs (e.g., “wants comfort”). Achieved 85%
+          accuracy on a small test set; received top course grade.
+        </li>
+      </ul>
+    </section>
+
+    <!-- SECTION: SKILLS -->
+    <section class="section" id="skillsSection">
+      <h2 class="section-title">Skills</h2>
+      <ul class="bullet-list">
+        <li>
+          <strong>Project & Operations Management:</strong> JIRA, Trello, Agile (sprint planning, daily stand-ups),
+          Gantt charting, timeline and resource management, cross-functional collaboration,
+          campaign management, performance tracking, and project documentation.
+        </li>
+        <li>
+          <strong>Data & Research:</strong> Data collection (Google Forms), research design, sentiment analysis,
+          healthcare and mental health trend analysis.
+        </li>
+        <li>
+          <strong>Data Analysis & Visualization:</strong> Python (Pandas, NumPy, NLTK), statistical analysis, data
+          cleaning, visualization (Tableau), sentiment analysis, multimodal model app development,
+          prompt engineering, Hugging Face transformers library (open source AI models).
+        </li>
+      </ul>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================
+       IN-BROWSER EDIT & PERSISTENCE SCRIPT (Optional interactive helper)
+       ======================================================================== -->
+  <script>
+    const resumeDoc = document.getElementById('resumeDoc');
+    const toggleBtn = document.getElementById('toggleEditBtn');
+    const saveIndicator = document.getElementById('saveIndicator');
+    const STORAGE_KEY = 'resume_template_saved_html';
+
+    // Load any saved edits from localStorage if available
+    window.addEventListener('DOMContentLoaded', () => {
+      const saved = localStorage.getItem(STORAGE_KEY);
+      if (saved) {
+        resumeDoc.innerHTML = saved;
+      }
+    });
+
+    let isEditing = false;
+
+    function toggleEditMode() {
+      isEditing = !isEditing;
+      resumeDoc.setAttribute('contenteditable', isEditing ? 'true' : 'false');
+      if (isEditing) {
+        toggleBtn.innerHTML = '💾 Done Editing';
+        toggleBtn.classList.remove('btn-secondary');
+        toggleBtn.classList.add('btn-primary');
+      } else {
+        toggleBtn.innerHTML = '✏️ Enable Edit Mode';
+        toggleBtn.classList.remove('btn-primary');
+        toggleBtn.classList.add('btn-secondary');
+        saveChanges();
+      }
+    }
+
+    // Auto-save on input with debouncing
+    let saveTimeout;
+    resumeDoc.addEventListener('input', () => {
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(saveChanges, 800);
+    });
+
+    function saveChanges() {
+      localStorage.setItem(STORAGE_KEY, resumeDoc.innerHTML);
+      saveIndicator.style.display = 'inline-flex';
+      setTimeout(() => {
+        saveIndicator.style.display = 'none';
+      }, 2000);
+    }
+
+    function resetToDefault() {
+      if (confirm('Are you sure you want to reset the template back to the original version?')) {
+        localStorage.removeItem(STORAGE_KEY);
+        window.location.reload();
+      }
+    }
+  </script>
+</body>
+
+</html>

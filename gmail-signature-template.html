@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Justin Manuzon - Email Signature Templates</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --card-border: #334155;
+      --text: #f8fafc;
+      --text-muted: #94a3b8;
+      --primary: #6366f1;
+      --primary-hover: #4f46e5;
+      --success: #10b981;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      padding: 40px 20px;
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #a5b4fc, #6366f1, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 8px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: 15px;
+    }
+
+    .instruction-card {
+      background: rgba(99, 102, 241, 0.1);
+      border: 1px solid rgba(99, 102, 241, 0.3);
+      border-radius: 12px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      font-size: 14px;
+      color: #c7d2fe;
+    }
+
+    .instruction-card ol {
+      margin-left: 20px;
+      margin-top: 8px;
+    }
+
+    .instruction-card li {
+      margin-bottom: 4px;
+    }
+
+    .signature-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+      transition: border-color 0.2s ease;
+    }
+
+    .signature-card:hover {
+      border-color: #475569;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      color: #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-recommended {
+      background: rgba(99, 102, 241, 0.2);
+      color: #a5b4fc;
+      border: 1px solid rgba(99, 102, 241, 0.4);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    button.btn-copy {
+      background: var(--primary);
+      color: #ffffff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    button.btn-copy:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+    }
+
+    button.btn-copy.copied {
+      background: var(--success);
+    }
+
+    .preview-box {
+      background: #ffffff;
+      border-radius: 10px;
+      padding: 24px;
+      overflow-x: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Justin Manuzon · Professional Email Signatures</h1>
+      <p>Polished, client-tested email signatures optimized for Gmail, Outlook, and Apple Mail.</p>
+    </header>
+
+    <div class="instruction-card">
+      <strong>How to set this up in Gmail:</strong>
+      <ol>
+        <li>Click <strong>"Copy for Gmail"</strong> on your preferred design below.</li>
+        <li>Open Gmail and click the <strong>Gear icon (Settings)</strong> &rarr; <strong>See all settings</strong>.
+        </li>
+        <li>Scroll down to the <strong>Signature</strong> section and click <strong>Create new</strong> (or edit your
+          existing one).</li>
+        <li>Paste directly with <kbd>Ctrl + V</kbd> (or <kbd>Cmd + V</kbd>) into the signature box.</li>
+        <li>Set the signature defaults to your new signature and click <strong>Save Changes</strong> at the bottom!</li>
+      </ol>
+    </div>
+
+    <!-- OPTION 1: MODERN TECH (RECOMMENDED) -->
+    <div class="signature-card">
+      <div class="card-header">
+        <div class="card-title">
+          Option 1: Modern Tech & Social Badges
+          <span class="badge-recommended">Recommended</span>
+        </div>
+        <div class="actions">
+          <button class="btn-copy" onclick="copySignature('sig-opt-1', this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Copy for Gmail
+          </button>
+        </div>
+      </div>
+      <div class="preview-box">
+        <div id="sig-opt-1">
+          <!-- SIGNATURE 1 START -->
+          <table cellpadding="0" cellspacing="0" border="0"
+            style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1e293b;line-height:1.4;background:transparent;">
+            <tr>
+              <!-- Profile Avatar -->
+              <td style="padding:0 18px 0 0;vertical-align:top;">
+                <img
+                  src="https://res.cloudinary.com/b4tdbqd3/image/upload/v1792075836/d78d98f6-8abc-42d3-8758-2a3cbef2cd3b.jpg"
+                  alt="Justin Manuel R. Manuzon" width="80" height="80"
+                  style="display:block;width:80px;height:80px;border-radius:50%;object-fit:cover;border:2px solid #6366f1;">
+              </td>
+              <!-- Divider Line -->
+              <td style="border-left:3px solid #6366f1;padding:0 0 0 18px;vertical-align:top;">
+                <!-- Name & Title -->
+                <div style="font-size:17px;font-weight:700;color:#0f172a;letter-spacing:-0.2px;margin:0 0 2px 0;">
+                  Justin Manuel R. Manuzon
+                </div>
+                <div style="font-size:13px;font-weight:500;color:#64748b;margin:0 0 8px 0;">
+                  Computer Science Student <span style="color:#cbd5e1;">·</span> FEU Tech
+                </div>
+
+                <!-- Contact Info -->
+                <table cellpadding="0" cellspacing="0" border="0"
+                  style="font-size:12px;color:#475569;margin-bottom:8px;">
+                  <tr>
+                    <td style="padding:2px 0;">
+                      <span style="color:#6366f1;font-weight:600;">✉</span>&nbsp;
+                      <a href="mailto:justinmanuzon413@gmail.com"
+                        style="color:#4338ca;text-decoration:none;font-weight:500;"
+                        target="_blank">justinmanuzon413@gmail.com</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:2px 0;">
+                      <span style="color:#6366f1;font-weight:600;">🕻</span>&nbsp;
+                      <a href="tel:+639153129975" style="color:#4338ca;text-decoration:none;font-weight:500;"
+                        target="_blank">+63 915 312 9975</a>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding:2px 0;">
+                      <span style="color:#6366f1;font-weight:600;">𖡡</span>&nbsp;
+                      <span style="color:#64748b;">Quezon City, Philippines</span>
+                    </td>
+                  </tr>
+                </table>
+
+                <!-- Social Badges -->
+                <table cellpadding="0" cellspacing="0" border="0">
+                  <tr>
+                    <td style="padding-right:6px;">
+                      <a href="https://www.linkedin.com/in/jrmanuzon" target="_blank" rel="noopener noreferrer"
+                        style="display:inline-block;padding:3px 9px;background-color:#0a66c2;color:#ffffff;text-decoration:none;font-size:11px;font-weight:600;border-radius:4px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;">
+                        LinkedIn
+                      </a>
+                    </td>
+                    <td style="padding-right:6px;">
+                      <a href="https://github.com/chickenjazz" target="_blank" rel="noopener noreferrer"
+                        style="display:inline-block;padding:3px 9px;background-color:#24292f;color:#ffffff;text-decoration:none;font-size:11px;font-weight:600;border-radius:4px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;">
+                        GitHub
+                      </a>
+                    </td>
+                    <td>
+                      <a href="https://paraverse.feutech.edu.ph/briefcase/profile/547113202T" target="_blank" rel="noopener noreferrer"
+                        style="display:inline-block;padding:3px 9px;background-color:#0284c7;color:#ffffff;text-decoration:none;font-size:11px;font-weight:600;border-radius:4px;font-family:-apple-system,BlinkMacSystemFont,sans-serif;">
+                        Briefcase
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+
+              </td>
+            </tr>
+          </table>
+          <!-- SIGNATURE 1 END -->
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION 2: SLEEK MINIMALIST (CLEAN & ELEGANT) -->
+    <div class="signature-card">
+      <div class="card-header">
+        <div class="card-title">Option 2: Sleek Minimalist (Inline Links)</div>
+        <div class="actions">
+          <button class="btn-copy" onclick="copySignature('sig-opt-2', this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Copy for Gmail
+          </button>
+        </div>
+      </div>
+      <div class="preview-box">
+        <div id="sig-opt-2">
+          <!-- SIGNATURE 2 START -->
+          <table cellpadding="0" cellspacing="0" border="0"
+            style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1e293b;line-height:1.45;background:transparent;">
+            <tr>
+              <!-- Profile Avatar (Rounded square) -->
+              <td style="padding:0 16px 0 0;vertical-align:middle;">
+                <img
+                  src="https://res.cloudinary.com/b4tdbqd3/image/upload/v1792075836/d78d98f6-8abc-42d3-8758-2a3cbef2cd3b.jpg"
+                  alt="Justin Manuel R. Manuzon" width="74" height="74"
+                  style="display:block;width:74px;height:74px;border-radius:12px;object-fit:cover;">
+              </td>
+              <!-- Content -->
+              <td style="border-left:2px solid #cbd5e1;padding:0 0 0 16px;vertical-align:middle;">
+                <div style="font-size:16px;font-weight:700;color:#0f172a;margin:0 0 2px 0;">Justin Manuel R. Manuzon
+                </div>
+                <div style="font-size:12px;color:#64748b;margin:0 0 6px 0;">Computer Science Student · FEU Institute of
+                  Technology</div>
+
+                <div style="font-size:12px;color:#334155;margin:0 0 4px 0;">
+                  <a href="mailto:justinmanuzon413@gmail.com" style="color:#2563eb;text-decoration:none;"
+                    target="_blank">justinmanuzon413@gmail.com</a>
+                  <span style="color:#cbd5e1;">&nbsp;|&nbsp;</span>
+                  <a href="tel:+639153129975" style="color:#2563eb;text-decoration:none;" target="_blank">+63 915 312
+                    9975</a>
+                  <span style="color:#cbd5e1;">&nbsp;|&nbsp;</span>
+                  <span style="color:#64748b;">Quezon City, PH</span>
+                </div>
+
+                <div style="font-size:12px;margin:2px 0 0 0;">
+                  <a href="https://www.linkedin.com/in/jrmanuzon" target="_blank" rel="noopener noreferrer"
+                    style="color:#0a66c2;font-weight:600;text-decoration:none;">LinkedIn ↗</a>
+                  <span style="color:#cbd5e1;">&nbsp;·&nbsp;</span>
+                  <a href="https://github.com/chickenjazz" target="_blank" rel="noopener noreferrer"
+                    style="color:#1e293b;font-weight:600;text-decoration:none;">GitHub ↗</a>
+                  <span style="color:#cbd5e1;">&nbsp;·&nbsp;</span>
+                  <a href="https://paraverse.feutech.edu.ph/briefcase/profile/547113202T" target="_blank" rel="noopener noreferrer"
+                    style="color:#0284c7;font-weight:600;text-decoration:none;">Briefcase ↗</a>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <!-- SIGNATURE 2 END -->
+        </div>
+      </div>
+    </div>
+
+    <!-- OPTION 3: VIBRANT PURPLE (ENHANCED VERSION OF YOUR ORIGINAL) -->
+    <div class="signature-card">
+      <div class="card-header">
+        <div class="card-title">Option 3: Refined Purple (Enhanced Original)</div>
+        <div class="actions">
+          <button class="btn-copy" onclick="copySignature('sig-opt-3', this)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+              stroke-linecap="round" stroke-linejoin="round">
+              <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+            </svg>
+            Copy for Gmail
+          </button>
+        </div>
+      </div>
+      <div class="preview-box">
+        <div id="sig-opt-3">
+          <!-- SIGNATURE 3 START -->
+          <table cellpadding="0" cellspacing="0" border="0"
+            style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;color:#1f2937;line-height:1.35;">
+            <tr>
+              <td style="padding:0 18px 0 0;vertical-align:middle;">
+                <img
+                  src="https://res.cloudinary.com/b4tdbqd3/image/upload/v1792075836/d78d98f6-8abc-42d3-8758-2a3cbef2cd3b.jpg"
+                  alt="Justin Manuel R. Manuzon" width="76" height="76"
+                  style="display:block;width:76px;height:76px;border-radius:50%;object-fit:cover;border:2px solid #7c3aed;">
+              </td>
+              <td style="border-left:3px solid #7c3aed;padding:0 0 0 18px;vertical-align:middle;">
+                <div style="font-size:16px;font-weight:700;color:#111827;letter-spacing:0.3px;margin:0 0 2px 0;">JUSTIN
+                  MANUEL R. MANUZON</div>
+                <div style="font-size:13px;color:#6b7280;margin:0 0 8px 0;">Computer Science Student · FEU Tech</div>
+
+                <div style="font-size:12px;margin:0 0 4px 0;">
+                  <a href="mailto:justinmanuzon413@gmail.com"
+                    style="color:#6d28d9;text-decoration:none;font-weight:500;"
+                    target="_blank">justinmanuzon413@gmail.com</a>
+                  <span style="color:#d1d5db;">&nbsp;|&nbsp;</span>
+                  <a href="tel:+639153129975" style="color:#6d28d9;text-decoration:none;font-weight:500;"
+                    target="_blank">+63 915 312 9975</a>
+                </div>
+
+                <div style="font-size:12px;margin:0 0 6px 0;color:#4b5563;">Quezon City, Philippines</div>
+
+                <div style="font-size:12px;margin:0;">
+                  <a href="https://www.linkedin.com/in/jrmanuzon" target="_blank" rel="noopener noreferrer"
+                    style="color:#6d28d9;text-decoration:none;font-weight:600;">LinkedIn</a>
+                  <span style="color:#d1d5db;">&nbsp;·&nbsp;</span>
+                  <a href="https://github.com/chickenjazz" target="_blank" rel="noopener noreferrer"
+                    style="color:#6d28d9;text-decoration:none;font-weight:600;">GitHub</a>
+                  <span style="color:#d1d5db;">&nbsp;·&nbsp;</span>
+                  <a href="https://paraverse.feutech.edu.ph/briefcase/profile/547113202T" target="_blank" rel="noopener noreferrer"
+                    style="color:#6d28d9;text-decoration:none;font-weight:600;">Briefcase</a>
+                </div>
+              </td>
+            </tr>
+          </table>
+          <!-- SIGNATURE 3 END -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function copySignature(elementId, btn) {
+      const el = document.getElementById(elementId);
+      if (!el) return;
+
+      const htmlContent = el.innerHTML.trim();
+      const textContent = el.innerText.trim();
+
+      try {
+        if (navigator.clipboard && window.ClipboardItem) {
+          const blobHtml = new Blob([htmlContent], { type: 'text/html' });
+          const blobText = new Blob([textContent], { type: 'text/plain' });
+          await navigator.clipboard.write([
+            new ClipboardItem({
+              'text/html': blobHtml,
+              'text/plain': blobText
+            })
+          ]);
+        } else {
+          // Fallback selection copy
+          const range = document.createRange();
+          range.selectNodeContents(el);
+          const sel = window.getSelection();
+          sel.removeAllRanges();
+          sel.addRange(range);
+          document.execCommand('copy');
+          sel.removeAllRanges();
+        }
+
+        const originalText = btn.innerHTML;
+        btn.innerHTML = `<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg> Copied! Ready to Paste`;
+        btn.classList.add('copied');
+
+        setTimeout(() => {
+          btn.innerHTML = originalText;
+          btn.classList.remove('copied');
+        }, 2500);
+      } catch (err) {
+        console.error('Copy failed: ', err);
+        // Fallback for older browsers
+        const range = document.createRange();
+        range.selectNodeContents(el);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        document.execCommand('copy');
+        sel.removeAllRanges();
+        alert('Signature copied! Paste into Gmail settings.');
+      }
+    }
+  </script>
+</body>
+
+</html>
