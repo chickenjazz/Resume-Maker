@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
+import jarvardIcon from '../assets/favicon_io/android-chrome-192x192.png';
 import {
-  FileText, PanelLeftClose, PanelLeftOpen,
+  PanelLeftClose, PanelLeftOpen,
   Printer, Download, Upload, RotateCcw, Check, Edit3, Eye
 } from 'lucide-react';
 
@@ -36,9 +37,9 @@ export default function AppHeader({
     <header className="app-header">
       <div className="app-header__brand">
         <div className="app-header__logo">
-          <FileText size={18} />
+          <img src={jarvardIcon} alt="Jarvard" className="app-header__logo-image" />
         </div>
-        <span className="app-header__title">Resume Maker</span>
+        <span className="app-header__title">Jarvard Resume Maker</span>
         {saved && (
           <span className="status-pill">
             <Check size={12} /> Saved

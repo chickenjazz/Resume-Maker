@@ -123,13 +123,22 @@ body {
 .app-header__logo {
   width: 32px;
   height: 32px;
-  background: var(--accent);
+  background: #ffffff;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(37, 99, 235, 0.4);
+  padding: 1px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28);
+}
+
+.app-header__logo-image {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  display: block;
+  flex: 0 0 auto;
 }
 
 .app-header__title {
