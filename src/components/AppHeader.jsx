@@ -36,7 +36,10 @@ export default function AppHeader({
     <header className="app-header">
       <div className="app-header__brand">
         <img src="/favicon.svg" alt="" className="app-header__brand-icon" aria-hidden="true" />
-        <span className="app-header__title">el<span className="app-header__title-cv">CV</span>ate</span>
+        <div className="app-header__brand-copy">
+          <span className="app-header__title">el<span className="app-header__title-cv">CV</span>ate</span>
+          <span className="app-header__tagline">by jrm</span>
+        </div>
         {saved && (
           <span className="status-pill">
             <Check size={12} /> Saved
