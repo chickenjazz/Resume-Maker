@@ -4,6 +4,7 @@ import {
   FileText, Briefcase, GraduationCap, Award,
   BookOpen, FolderKanban, Wrench, UserCheck, GripVertical, Trash2
 } from 'lucide-react';
+import AppModal from './AppModal';
 
 export default function EditorPanel({
   data,
@@ -23,6 +24,7 @@ export default function EditorPanel({
     projects: true,
     skills: true
   });
+  const [deleteTarget, setDeleteTarget] = useState(null);
 
   const toggleAccordion = (key) => {
     setExpandedSections(prev => ({ ...prev, [key]: !prev[key] }));
@@ -69,7 +71,12 @@ export default function EditorPanel({
   const isItemVisible = (id) => !hiddenItems.includes(id);
 
   const deleteItem = (sectionKey, itemId) => {
-    if (!confirm('Delete this item? This cannot be undone.')) return;
+    setDeleteTarget({ sectionKey, itemId });
+  };
+
+  const confirmDeleteItem = () => {
+    if (!deleteTarget) return;
+    const { sectionKey, itemId } = deleteTarget;
     setData(prev => {
       const next = { ...prev };
       const collectionKey = sectionKey === 'projects' ? (next.projects ? 'projects' : 'courseProjects') : sectionKey;
@@ -79,6 +86,7 @@ export default function EditorPanel({
       next.hiddenItems = (next.hiddenItems || []).filter(id => id !== itemId);
       return next;
     });
+    setDeleteTarget(null);
   };
 
   const reorderItem = (sectionKey, sourceId, targetId) => {
@@ -354,6 +362,18 @@ export default function EditorPanel({
           );
         })}
       </div>
+
+      {deleteTarget && (
+        <AppModal
+          title="Delete item?"
+          message="This item will be permanently removed from your resume."
+          confirmLabel="Delete Item"
+          confirmClassName="btn--danger-solid"
+          cancelLabel="Cancel"
+          onConfirm={confirmDeleteItem}
+          onCancel={() => setDeleteTarget(null)}
+        />
+      )}
     </aside>
   );
 }
