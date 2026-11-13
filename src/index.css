@@ -1289,3 +1289,599 @@ body {
     page-break-inside: avoid !important;
   }
 }
+
+/* Resume color and hierarchy */
+.resume-page {
+  --resume-accent: #153b6b;
+  --resume-ink: #171717;
+  --resume-muted: rgba(23, 23, 23, 0.68);
+}
+
+.resume-page .r-header__name,
+.resume-page .r-section__title {
+  color: var(--resume-accent);
+}
+
+.resume-page .r-section__header-row,
+.resume-page.r-section:not(:has(.r-section__header-row)) .r-section__title,
+.resume-page .r-section:not(:has(.r-section__header-row)) .r-section__title {
+  border-bottom-color: var(--resume-accent);
+}
+
+.resume-page .r-entry__title,
+.resume-page .font-bold,
+.resume-page .r-bullets strong {
+  color: var(--resume-ink);
+  font-weight: 700;
+}
+
+.resume-page .r-entry__sub,
+.resume-page .r-period-sub,
+.resume-page .r-grad-sub,
+.resume-page .r-header__contact,
+.resume-page .r-sep,
+.resume-page .r-period-sep {
+  color: var(--resume-muted);
+}
+
+.resume-page .r-summary,
+.resume-page .r-bullets li,
+.resume-page .r-entry__title {
+  color: var(--resume-ink);
+}
+
+.sidebar-color-card {
+  background: var(--navy-50);
+  border: 1px solid var(--navy-200);
+  border-radius: 8px;
+  padding: 10px 12px;
+}
+
+.sidebar-color-card__header,
+.sidebar-color-picker {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sidebar-color-card__title {
+  color: var(--navy-800);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.sidebar-color-card__value {
+  color: var(--navy-500);
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+
+.sidebar-color-picker {
+  justify-content: flex-start;
+  margin-top: 8px;
+  color: var(--navy-600);
+  font-size: 10.5px;
+}
+
+.sidebar-color-picker input {
+  width: 30px;
+  height: 24px;
+  padding: 0;
+  border: 1px solid var(--navy-300);
+  border-radius: 4px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.sidebar-color-presets {
+  display: flex;
+  gap: 7px;
+  margin-top: 9px;
+}
+
+.color-preset {
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.12);
+}
+
+.color-preset.is-selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Readability and drag-and-drop controls */
+.resume-page {
+  font-size: 12px;
+}
+
+.r-entry__title {
+  font-size: 11.8px;
+}
+
+.r-entry__sub,
+.r-period-sub,
+.r-grad-sub,
+.r-bullets li,
+.r-summary {
+  font-size: 11.2px;
+}
+
+.r-bullets li {
+  line-height: 1.28;
+}
+
+.r-bullets li.is-bullet-editing {
+  align-items: flex-start;
+  gap: 5px;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.r-bullets li.is-bullet-editing::before {
+  content: '•';
+  width: 10px;
+  min-width: 10px;
+  color: #111111;
+  font-size: 12px;
+  line-height: 1.28;
+  text-align: center;
+}
+
+.bullet-content {
+  min-width: 0;
+}
+
+.r-bullets li[draggable='true'] {
+  cursor: grab;
+}
+
+.r-bullets li.is-dragging,
+.item-toggle-row.is-dragging {
+  opacity: 0.45;
+}
+
+.btn-move-bullet {
+  display: none !important;
+}
+
+.bullet-actions::before {
+  content: '⋮⋮';
+  color: var(--navy-400);
+  cursor: grab;
+  font-size: 13px;
+  letter-spacing: -3px;
+  margin-right: 4px;
+}
+
+.item-drag-handle {
+  flex-shrink: 0;
+  color: var(--navy-400);
+  cursor: grab;
+}
+
+.btn-item-delete {
+  background: none;
+  border: none;
+  color: var(--danger);
+  cursor: pointer;
+  padding: 3px;
+  border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.btn-item-delete:hover {
+  background: var(--danger-light);
+}
+
+@media print {
+  .r-bullets li.is-bullet-editing {
+    display: list-item !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    list-style: disc !important;
+  }
+
+  .r-bullets li.is-bullet-editing::before,
+  .bullet-actions::before {
+    display: none !important;
+  }
+}
+
+/* ==========================================================================\n+   HARVARD-STYLE RESUME OVERRIDES\n+   ========================================================================== */
+
+:root {
+  --resume-navy: #222222;
+  --text-body: #111111;
+  --text-muted: #333333;
+  --font: Georgia, 'Times New Roman', serif;
+  --font-heading: Georgia, 'Times New Roman', serif;
+}
+
+body {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: #111111;
+  background: #eeeeee;
+  font-size: 11px;
+  line-height: 1.22;
+}
+
+.preview-area {
+  padding: 28px 20px 48px;
+  background: #eeeeee;
+}
+
+.resume-page {
+  width: 8.5in;
+  min-height: 11in;
+  padding: 0.48in 0.58in;
+  border-radius: 0;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.12);
+  color: #111111;
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.resume-page.is-edit-mode {
+  box-shadow: 0 0 0 2px #64748b, 0 5px 18px rgba(0, 0, 0, 0.12);
+}
+
+.resume-page .r-header {
+  color: #222222;
+  padding: 0 0 7px;
+  margin-bottom: 13px;
+}
+
+.resume-page .r-header__name {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 19px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: #333333;
+  margin-bottom: 3px;
+  line-height: 1.15;
+  text-transform: uppercase;
+}
+
+.resume-page .r-header__contact {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 10.5px;
+  color: #111111;
+  gap: 6px;
+  line-height: 1.2;
+}
+
+.r-header__sep {
+  color: #111111;
+}
+
+.r-section {
+  margin-bottom: 12px;
+}
+
+.r-section__header-row,
+.r-section:not(:has(.r-section__header-row)) .r-section__title {
+  margin-bottom: 5px;
+  padding-bottom: 2px;
+  border-bottom: 1px solid #222222;
+}
+
+.r-section__title {
+  font-family: Georgia, 'Times New Roman', serif;
+  display: block;
+  font-size: 11.5px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #333333;
+  text-transform: uppercase;
+}
+
+.r-section__title::before {
+  display: none;
+}
+
+.r-entry {
+  margin-bottom: 8px;
+}
+
+.r-entry__head {
+  margin-bottom: 1px;
+  gap: 8px;
+}
+
+.r-entry__title {
+  font-size: 11.8px;
+  line-height: 1.2;
+  color: #111111;
+}
+
+.r-entry__sub,
+.r-period-sub,
+.r-grad-sub {
+  font-size: 11.2px;
+  line-height: 1.2;
+  color: #111111;
+}
+
+.r-bullets {
+  padding-left: 17px;
+  margin-top: 1px;
+}
+
+.r-bullets li {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 11.2px;
+  line-height: 1.22;
+  color: #111111;
+  margin-bottom: 1px;
+}
+
+.r-summary {
+  font-size: 11.2px;
+  line-height: 1.3;
+  text-align: left;
+}
+
+.font-bold {
+  color: #222222;
+  font-weight: 700;
+}
+
+.r-sep,
+.r-period-sep {
+  color: #333333;
+}
+
+@media print {
+  html,
+  body {
+    font-family: Georgia, 'Times New Roman', serif !important;
+    background: #ffffff !important;
+  }
+
+  .preview-area {
+    background: #ffffff !important;
+  }
+
+  .resume-page,
+  .resume-page.is-edit-mode {
+    box-shadow: none !important;
+    font-family: Georgia, 'Times New Roman', serif !important;
+  }
+
+  .resume-page .r-header__name,
+  .r-section__title {
+    font-family: Georgia, 'Times New Roman', serif !important;
+  }
+}
+
+/* Final theme colors: kept after template defaults so the selector always wins. */
+.resume-page .r-header__name,
+.resume-page .r-section__title {
+  color: var(--resume-accent) !important;
+}
+
+.resume-page .r-section__header-row,
+.resume-page .r-section:not(:has(.r-section__header-row)) .r-section__title {
+  border-bottom-color: var(--resume-accent) !important;
+}
+
+.resume-page .r-entry__sub,
+.resume-page .r-period-sub,
+.resume-page .r-grad-sub,
+.resume-page .r-header__contact,
+.resume-page .r-sep,
+.resume-page .r-period-sep {
+  color: var(--resume-muted) !important;
+}
+
+/* Final spacing and indentation pass */
+.resume-page {
+  padding: 0.5in 0.58in;
+}
+
+.resume-page .r-header {
+  margin-bottom: 14px;
+}
+
+.resume-page .r-section {
+  margin-bottom: 13px;
+}
+
+.resume-page .r-section__header-row,
+.resume-page .r-section:not(:has(.r-section__header-row)) .r-section__title {
+  margin-bottom: 6px;
+}
+
+.resume-page .r-entry {
+  margin-bottom: 9px;
+}
+
+.resume-page .r-entry__head {
+  margin-bottom: 2px;
+}
+
+.resume-page .r-bullets {
+  padding-left: 16px;
+  margin-top: 2px;
+}
+
+.resume-page .r-bullets li {
+  margin-bottom: 2px;
+  line-height: 1.3;
+}
+
+.resume-page .r-bullets li.is-bullet-editing {
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+  margin-left: 0;
+  padding-left: 0;
+}
+
+.resume-page .r-bullets li.is-bullet-editing::before {
+  flex: 0 0 10px;
+  width: 10px;
+  margin-top: 0;
+  line-height: 1.3;
+}
+
+.resume-page .bullet-content {
+  flex: 1 1 auto;
+  min-width: 0;
+  line-height: inherit;
+}
+
+.resume-page .bullet-content .editable-field {
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.resume-page .r-bullets .bullet-content .editable-field.is-multiline {
+  display: block;
+  width: 100%;
+  min-height: 1.3em;
+  padding: 2px 4px;
+  margin: 0;
+  line-height: 1.3;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.resume-page .r-bullets .bullet-content .editable-field.is-multiline:focus {
+  margin: 0;
+  padding: 2px 4px;
+}
+
+.resume-page .bullet-actions::before {
+  display: none;
+}
+
+.resume-page .bullet-drag-handle {
+  display: inline-flex;
+  align-items: center;
+  color: var(--navy-400);
+  cursor: grab;
+  font-size: 13px;
+  letter-spacing: -3px;
+  margin-right: 4px;
+  user-select: none;
+}
+
+.resume-page .bullet-drag-handle:active {
+  cursor: grabbing;
+}
+
+/* Modern UI typography, isolated from the resume document typography. */
+:root {
+  --ui-font: Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body,
+.app,
+.app-header,
+.editor-sidebar,
+.editor-sidebar button,
+.editor-sidebar input,
+.editor-sidebar label {
+  font-family: var(--ui-font);
+}
+
+.resume-page,
+.resume-page button,
+.resume-page input,
+.resume-page textarea {
+  font-family: Georgia, 'Times New Roman', serif;
+}
+
+.resume-page .r-summary {
+  line-height: 1.35;
+}
+
+/* Keep clean preview content as readable as editing mode after controls disappear. */
+.resume-page:not(.is-edit-mode) .r-section {
+  margin-bottom: 16px;
+}
+
+.resume-page:not(.is-edit-mode) .r-section__header-row,
+.resume-page:not(.is-edit-mode) .r-section:not(:has(.r-section__header-row)) .r-section__title {
+  margin-bottom: 8px;
+}
+
+.resume-page:not(.is-edit-mode) .r-entry {
+  margin-bottom: 12px;
+}
+
+.resume-page:not(.is-edit-mode) .r-entry__head {
+  margin-bottom: 4px;
+}
+
+.resume-page:not(.is-edit-mode) .r-bullets {
+  margin-top: 3px;
+  padding-left: 20px;
+}
+
+.resume-page:not(.is-edit-mode) .r-bullets li {
+  margin-bottom: 4px;
+  line-height: 1.36;
+}
+
+.resume-page:not(.is-edit-mode) .r-entry__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: baseline;
+  column-gap: 12px;
+}
+
+.resume-page:not(.is-edit-mode) .r-entry__title {
+  min-width: 0;
+}
+
+/* Slightly larger document type with lighter employer metadata. */
+.resume-page .r-section__title {
+  font-size: 12px;
+}
+
+.resume-page .r-header__contact {
+  font-size: 10.8px;
+}
+
+.resume-page .r-entry__title {
+  font-size: 12.2px;
+}
+
+.resume-page .r-entry__sub,
+.resume-page .r-period-sub,
+.resume-page .r-grad-sub,
+.resume-page .r-bullets li,
+.resume-page .r-summary {
+  font-size: 11.6px;
+}
+
+.resume-page .r-entry__title .r-company,
+.resume-page .r-entry__title .r-location {
+  color: var(--resume-muted);
+  font-weight: 400;
+}
+
+/* Keep graduation status/date below the education heading row. */
+.resume-page .r-entry__head .r-grad-sub {
+  flex-basis: 100%;
+}
+
+.resume-page:not(.is-edit-mode) .r-entry__head .r-grad-sub {
+  grid-column: 1 / -1;
+}
+
+/* Consistent list indentation in both editing and preview modes. */
+.resume-page .r-bullets {
+  padding-left: 20px;
+  margin-left: 10px;
+}
