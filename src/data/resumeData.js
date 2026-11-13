@@ -1,4 +1,7 @@
 export const initialResumeData = {
+  theme: {
+    accent: "#153b6b"
+  },
   hiddenSections: [],
   hiddenItems: [],
   header: {
@@ -7,7 +10,9 @@ export const initialResumeData = {
     phone: "[Phone Number]",
     email: "[EMAIL_ADDRESS]",
     linkedin: "linkedin.com/in/your-linkedin",
-    linkedinUrl: "https://linkedin.com/in/your-linkedin"
+    linkedinUrl: "https://linkedin.com/in/your-linkedin",
+    github: "github.com/your-username",
+    githubUrl: "https://github.com/your-username"
   },
   summary: "Results-driven project and program manager with a background in cognitive psychology and data analysis, aligning with SynapseCo’s mission at the intersection of cognitive science and technology. Proven ability to lead end-to-end data-driven initiatives—from planning and timelines to execution and delivery—across healthcare, mental health, and remote work domains. Expertise in collaborating with cross-functional teams (developers, designers, QA), Agile project management (Jira, Trello), data analysis (Python, sentiment analysis), and stakeholder alignment. Adept at managing timelines, resources, and complex workflows to deliver actionable insights on time.",
   experience: [

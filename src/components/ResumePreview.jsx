@@ -11,6 +11,7 @@ export default function ResumePreview({
   const { header, summary, experience, education, certifications, onlineCourses, projects, courseProjects, skills } = data;
   const hiddenSections = data.hiddenSections || [];
   const hiddenItems = data.hiddenItems || [];
+  const accentColor = data.theme?.accent || '#153b6b';
 
   const showSection = (key) => !hiddenSections.includes(key);
   const showItem = (id) => !hiddenItems.includes(id);
@@ -22,6 +23,51 @@ export default function ResumePreview({
       updater(copy);
       return copy;
     });
+  };
+
+  const reorderItems = (group, sourceId, targetId) => {
+    if (!sourceId || !targetId || sourceId === targetId) return;
+    update(d => {
+      let list;
+      if (group === 'experience') list = d.experience;
+      else if (group === 'education') list = d.education;
+      else if (group === 'certifications') list = d.certifications;
+      else if (group === 'onlineCourses') list = d.onlineCourses;
+      else if (group === 'projects') list = d.projects || d.courseProjects;
+      else if (group === 'skills') list = d.skills;
+      else if (group.startsWith('experience-bullets:')) {
+        const entry = d.experience?.find(item => item.id === group.slice(19));
+        list = entry?.bullets;
+      } else if (group.startsWith('education-bullets:')) {
+        const entry = d.education?.find(item => item.id === group.slice(18));
+        list = entry?.bullets;
+      }
+
+      if (!list) return;
+      const sourceIndex = list.findIndex(item => item.id === sourceId);
+      const targetIndex = list.findIndex(item => item.id === targetId);
+      if (sourceIndex < 0 || targetIndex < 0) return;
+      const [item] = list.splice(sourceIndex, 1);
+      list.splice(targetIndex, 0, item);
+    });
+  };
+
+  const handleDragStart = (event, group, id) => {
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', JSON.stringify({ group, id }));
+    event.currentTarget.classList.add('is-dragging');
+  };
+
+  const handleDragEnd = (event) => {
+    event.currentTarget.classList.remove('is-dragging');
+  };
+
+  const handleDrop = (event, group, targetId) => {
+    event.preventDefault();
+    try {
+      const source = JSON.parse(event.dataTransfer.getData('text/plain'));
+      if (source.group === group) reorderItems(group, source.id, targetId);
+    } catch { /* Ignore drops that are not resume items. */ }
   };
 
   /* ---- Header updates ---- */
@@ -504,6 +550,22 @@ export default function ResumePreview({
       />
     );
   }
+  if (showItem('contact-github')) {
+    contactElements.push(
+      <EditableText
+        key="github"
+        value={header.github || 'github.com/your-username'}
+        onChange={(val) => updateHeader('github', val)}
+        isEditing={isEditing}
+        label="GitHub Profile"
+        placeholder="github.com/username"
+        as={isEditing ? 'span' : 'a'}
+        href={!isEditing && header.github ? `https://${header.github.replace(/^https?:\/\//, '')}` : undefined}
+        target={!isEditing ? '_blank' : undefined}
+        rel={!isEditing ? 'noopener noreferrer' : undefined}
+      />
+    );
+  }
 
   // Filtered items based on hiddenItems, sorted with latest on top
   const visibleExperience = (experience || [])
@@ -532,7 +594,11 @@ export default function ResumePreview({
     .filter(({ s, idx }) => showItem(s.id || `sk-${idx}`));
 
   return (
-    <div className={`resume-page ${isEditing ? 'is-edit-mode' : ''}`} id="resumeDoc">
+    <div
+      className={`resume-page ${isEditing ? 'is-edit-mode' : ''}`}
+      id="resumeDoc"
+      style={{ '--resume-accent': accentColor }}
+    >
       {/* ─── Header ─── */}
       <div className="r-header">
         <h1 className="r-header__name">
@@ -626,6 +692,7 @@ export default function ResumePreview({
                         isEditing={isEditing}
                         label="Company Name"
                         placeholder="Company Name"
+                        className="r-company"
                       />
                     </>
                   )}
@@ -638,6 +705,7 @@ export default function ResumePreview({
                         isEditing={isEditing}
                         label="Location"
                         placeholder="City, State"
+                        className="r-location"
                       />
                     </>
                   )}
@@ -666,10 +734,11 @@ export default function ResumePreview({
               {(entry.bullets.length > 0 || isEditing) && (
                 <ul className="r-bullets">
                   {entry.bullets.map((b, bulletIdx) => (
-                    <li key={b.id || bulletIdx} className={isEditing ? 'is-bullet-editing' : ''}>
+                    <li key={b.id || bulletIdx} onDragOver={(event) => event.preventDefault()} onDrop={(event) => handleDrop(event, `experience-bullets:${entry.id || expIdx}`, b.id)} className={isEditing ? 'is-bullet-editing' : ''}>
                       <span className="bullet-content">
                         {(b.highlight || isEditing) && (
-                          <EditableText
+                          <>
+                            <EditableText
                             value={b.highlight}
                             onChange={(val) => updateExpBullet(entry.id || expIdx, bulletIdx, 'highlight', val)}
                             isEditing={isEditing}
@@ -677,7 +746,9 @@ export default function ResumePreview({
                             placeholder="Key Achievement:"
                             as="strong"
                             className="mr-1"
-                          />
+                            />
+                            {' '}
+                          </>
                         )}
                         <EditableText
                           value={b.text}
@@ -691,6 +762,7 @@ export default function ResumePreview({
 
                       {isEditing && (
                         <span className="bullet-actions">
+                          <span className="bullet-drag-handle" draggable={true} onDragStart={(event) => handleDragStart(event, `experience-bullets:${entry.id || expIdx}`, b.id)} onDragEnd={handleDragEnd} title="Drag to reorder">⋮⋮</span>
                           <button
                             type="button"
                             className="btn-move-bullet"
@@ -848,10 +920,11 @@ export default function ResumePreview({
               {(entry.bullets?.length > 0 || isEditing) && (
                 <ul className="r-bullets">
                   {entry.bullets?.map((b, bulletIdx) => (
-                    <li key={b.id || bulletIdx} className={isEditing ? 'is-bullet-editing' : ''}>
+                    <li key={b.id || bulletIdx} onDragOver={(event) => event.preventDefault()} onDrop={(event) => handleDrop(event, `education-bullets:${entry.id || eduIdx}`, b.id)} className={isEditing ? 'is-bullet-editing' : ''}>
                       <span className="bullet-content">
                         {(b.highlight || isEditing) && (
-                          <EditableText
+                          <>
+                            <EditableText
                             value={b.highlight}
                             onChange={(val) => updateEduBullet(eduIdx, bulletIdx, 'highlight', val)}
                             isEditing={isEditing}
@@ -859,7 +932,9 @@ export default function ResumePreview({
                             placeholder="Highlight:"
                             as="strong"
                             className="mr-1"
-                          />
+                            />
+                            {' '}
+                          </>
                         )}
                         <EditableText
                           value={b.text}
@@ -872,6 +947,7 @@ export default function ResumePreview({
 
                       {isEditing && (
                         <span className="bullet-actions">
+                          <span className="bullet-drag-handle" draggable={true} onDragStart={(event) => handleDragStart(event, `education-bullets:${entry.id || eduIdx}`, b.id)} onDragEnd={handleDragEnd} title="Drag to reorder">⋮⋮</span>
                           <button
                             type="button"
                             className="btn-move-bullet"
@@ -940,7 +1016,7 @@ export default function ResumePreview({
 
           <ul className="r-bullets">
             {visibleCerts.map(({ cert, idx }) => (
-              <li key={cert.id || idx} className={isEditing ? 'is-bullet-editing' : ''}>
+              <li key={cert.id || idx} onDragOver={(event) => event.preventDefault()} onDrop={(event) => handleDrop(event, 'certifications', cert.id)} className={isEditing ? 'is-bullet-editing' : ''}>
                 <span className="bullet-content">
                   <EditableText
                     value={cert.name}
@@ -979,6 +1055,7 @@ export default function ResumePreview({
 
                 {isEditing && (
                   <span className="bullet-actions">
+                    <span className="bullet-drag-handle" draggable={true} onDragStart={(event) => handleDragStart(event, 'certifications', cert.id)} onDragEnd={handleDragEnd} title="Drag to reorder">⋮⋮</span>
                     <button
                       type="button"
                       className="btn-move-bullet"
@@ -1032,7 +1109,7 @@ export default function ResumePreview({
 
           <ul className="r-bullets">
             {visibleCourses.map(({ c, idx }) => (
-              <li key={c.id || idx} className={isEditing ? 'is-bullet-editing' : ''}>
+              <li key={c.id || idx} onDragOver={(event) => event.preventDefault()} onDrop={(event) => handleDrop(event, 'onlineCourses', c.id)} className={isEditing ? 'is-bullet-editing' : ''}>
                 <span className="bullet-content">
                   <EditableText
                     value={c.text}
@@ -1045,6 +1122,7 @@ export default function ResumePreview({
 
                 {isEditing && (
                   <span className="bullet-actions">
+                    <span className="bullet-drag-handle" draggable={true} onDragStart={(event) => handleDragStart(event, 'onlineCourses', c.id)} onDragEnd={handleDragEnd} title="Drag to reorder">⋮⋮</span>
                     <button
                       type="button"
                       className="btn-move-bullet"
@@ -1098,7 +1176,7 @@ export default function ResumePreview({
 
           <ul className="r-bullets">
             {visibleProjects.map(({ p, idx }) => (
-              <li key={p.id || idx} className={isEditing ? 'is-bullet-editing' : ''}>
+              <li key={p.id || idx} onDragOver={(event) => event.preventDefault()} onDrop={(event) => handleDrop(event, 'projects', p.id)} className={isEditing ? 'is-bullet-editing' : ''}>
                 <span className="bullet-content">
                   <EditableText
                     value={p.highlight}
@@ -1121,6 +1199,7 @@ export default function ResumePreview({
 
                 {isEditing && (
                   <span className="bullet-actions">
+                    <span className="bullet-drag-handle" draggable={true} onDragStart={(event) => handleDragStart(event, 'projects', p.id)} onDragEnd={handleDragEnd} title="Drag to reorder">⋮⋮</span>
                     <button
                       type="button"
                       className="btn-move-bullet"
@@ -1174,7 +1253,7 @@ export default function ResumePreview({
 
           <ul className="r-bullets">
             {visibleSkills.map(({ s, idx }) => (
-              <li key={s.id || idx} className={isEditing ? 'is-bullet-editing' : ''}>
+              <li key={s.id || idx} onDragOver={(event) => event.preventDefault()} onDrop={(event) => handleDrop(event, 'skills', s.id)} className={isEditing ? 'is-bullet-editing' : ''}>
                 <span className="bullet-content">
                   <EditableText
                     value={s.category}
@@ -1185,6 +1264,7 @@ export default function ResumePreview({
                     as="strong"
                     className="mr-1"
                   />
+                  {' '}
                   <EditableText
                     value={s.text}
                     onChange={(val) => updateSkillField(idx, 'text', val)}
@@ -1196,6 +1276,7 @@ export default function ResumePreview({
 
                 {isEditing && (
                   <span className="bullet-actions">
+                    <span className="bullet-drag-handle" draggable={true} onDragStart={(event) => handleDragStart(event, 'skills', s.id)} onDragEnd={handleDragEnd} title="Drag to reorder">⋮⋮</span>
                     <button
                       type="button"
                       className="btn-move-bullet"

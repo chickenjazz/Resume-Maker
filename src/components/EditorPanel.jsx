@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import {
   Eye, EyeOff, ChevronDown, ChevronRight,
   FileText, Briefcase, GraduationCap, Award,
-  BookOpen, FolderKanban, Wrench, Edit3, UserCheck
+  BookOpen, FolderKanban, Wrench, UserCheck, GripVertical, Trash2
 } from 'lucide-react';
 
 export default function EditorPanel({
   data,
   setData,
-  isEditing,
-  onToggleEdit,
   isOpen
 }) {
   const hiddenSections = data.hiddenSections || [];
@@ -58,8 +56,61 @@ export default function EditorPanel({
     }));
   };
 
+  const accentColor = data.theme?.accent || '#153b6b';
+
+  const setAccentColor = (accent) => {
+    setData(prev => ({
+      ...prev,
+      theme: { ...(prev.theme || {}), accent }
+    }));
+  };
+
   const isSectionVisible = (key) => !hiddenSections.includes(key);
   const isItemVisible = (id) => !hiddenItems.includes(id);
+
+  const deleteItem = (sectionKey, itemId) => {
+    if (!confirm('Delete this item? This cannot be undone.')) return;
+    setData(prev => {
+      const next = { ...prev };
+      const collectionKey = sectionKey === 'projects' ? (next.projects ? 'projects' : 'courseProjects') : sectionKey;
+      if (Array.isArray(next[collectionKey])) {
+        next[collectionKey] = next[collectionKey].filter(item => item.id !== itemId);
+      }
+      next.hiddenItems = (next.hiddenItems || []).filter(id => id !== itemId);
+      return next;
+    });
+  };
+
+  const reorderItem = (sectionKey, sourceId, targetId) => {
+    if (sourceId === targetId) return;
+    setData(prev => {
+      const next = { ...prev };
+      const collectionKey = sectionKey === 'projects' ? (next.projects ? 'projects' : 'courseProjects') : sectionKey;
+      const list = next[collectionKey];
+      if (!Array.isArray(list)) return prev;
+      const sourceIndex = list.findIndex(item => item.id === sourceId);
+      const targetIndex = list.findIndex(item => item.id === targetId);
+      if (sourceIndex < 0 || targetIndex < 0) return prev;
+      next[collectionKey] = [...list];
+      const [item] = next[collectionKey].splice(sourceIndex, 1);
+      next[collectionKey].splice(targetIndex, 0, item);
+      return next;
+    });
+  };
+
+  const handleItemDragStart = (event, sectionKey, itemId) => {
+    event.dataTransfer.effectAllowed = 'move';
+    event.dataTransfer.setData('text/plain', JSON.stringify({ sectionKey, itemId }));
+    event.currentTarget.classList.add('is-dragging');
+  };
+
+  const handleItemDrop = (event, sectionKey, targetId) => {
+    event.preventDefault();
+    try {
+      const source = JSON.parse(event.dataTransfer.getData('text/plain'));
+      if (source.sectionKey === sectionKey) reorderItem(sectionKey, source.itemId, targetId);
+    } catch { /* Ignore unrelated drops. */ }
+  };
 
   // Sections configuration
   const sectionsConfig = [
@@ -73,6 +124,7 @@ export default function EditorPanel({
         { id: 'contact-phone', label: 'Phone', preview: data.header?.phone },
         { id: 'contact-email', label: 'Email', preview: data.header?.email },
         { id: 'contact-linkedin', label: 'LinkedIn', preview: data.header?.linkedin },
+        { id: 'contact-github', label: 'GitHub', preview: data.header?.github || 'github.com/your-username' },
       ]
     },
     {
@@ -158,30 +210,40 @@ export default function EditorPanel({
         </div>
       </div>
 
-      {/* Edit Mode Status Banner */}
-      <div className={`edit-mode-card ${isEditing ? 'is-active' : ''}`}>
-        <div className="edit-mode-card__top">
-          <div className="edit-mode-card__icon">
-            <Edit3 size={18} />
-          </div>
-          <div className="edit-mode-card__text">
-            <strong>{isEditing ? 'Editing' : 'Previewing'}</strong>
-            <span>{isEditing ? 'Hover over fields to see labels. Click to edit.' : 'Click to edit in-place directly on resume.'}</span>
-          </div>
-        </div>
-        <button
-          className={`btn btn--sm ${isEditing ? 'btn--success' : 'btn--primary'} btn--full`}
-          onClick={onToggleEdit}
-        >
-          {isEditing ? 'Save' : 'Edit'}
-        </button>
-      </div>
-
       {/* Bulk actions */}
       <div className="sidebar-actions-bar">
         <button className="btn-link" onClick={showAll}>
           Show All Items
         </button>
+      </div>
+
+      <div className="sidebar-color-card">
+        <div className="sidebar-color-card__header">
+          <span className="sidebar-color-card__title">Resume Color</span>
+          <span className="sidebar-color-card__value">{accentColor}</span>
+        </div>
+        <div className="sidebar-color-picker">
+          <input
+            type="color"
+            value={accentColor}
+            aria-label="Choose resume accent color"
+            onChange={(event) => setAccentColor(event.target.value)}
+          />
+          <span>Name, headings &amp; divider lines</span>
+        </div>
+        <div className="sidebar-color-presets" aria-label="Resume color presets">
+          {['#153b6b', '#222222', '#6b1f2b', '#1f5b4d', '#5b4636'].map(color => (
+            <button
+              key={color}
+              type="button"
+              className={`color-preset ${accentColor.toLowerCase() === color ? 'is-selected' : ''}`}
+              style={{ backgroundColor: color }}
+              aria-label={`Use ${color}`}
+              title={color}
+              onClick={() => setAccentColor(color)}
+            />
+          ))}
+        </div>
       </div>
 
       {/* Sections and Items List */}
@@ -241,10 +303,16 @@ export default function EditorPanel({
                     return (
                       <div
                         key={item.id}
+                        draggable={key !== 'contact'}
+                        onDragStart={(event) => handleItemDragStart(event, key, item.id)}
+                        onDragEnd={(event) => event.currentTarget.classList.remove('is-dragging')}
+                        onDragOver={(event) => event.preventDefault()}
+                        onDrop={(event) => handleItemDrop(event, key, item.id)}
                         className={`item-toggle-row ${itemActive ? 'is-active' : 'is-muted'}`}
                         onClick={() => toggleItem(item.id)}
                         title={`Click to ${itemActive ? 'hide' : 'show'} this item`}
                       >
+                        {key !== 'contact' && <GripVertical className="item-drag-handle" size={14} aria-label="Drag to reorder" />}
                         <div className="item-toggle-info">
                           <span className="item-toggle-label">{item.label}</span>
                           {item.sub && (
@@ -263,6 +331,20 @@ export default function EditorPanel({
                         >
                           {itemActive ? <Eye size={14} /> : <EyeOff size={14} />}
                         </button>
+                        {key !== 'contact' && (
+                          <button
+                            type="button"
+                            className="btn-item-delete"
+                            aria-label="Delete item"
+                            title="Delete item"
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              deleteItem(key, item.id);
+                            }}
+                          >
+                            <Trash2 size={14} />
+                          </button>
+                        )}
                       </div>
                     );
                   })}
