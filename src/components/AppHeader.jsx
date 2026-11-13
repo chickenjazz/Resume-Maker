@@ -1,5 +1,4 @@
 import React, { useRef } from 'react';
-import jarvardIcon from '../assets/favicon_io/android-chrome-192x192.png';
 import {
   PanelLeftClose, PanelLeftOpen,
   Printer, Download, Upload, RotateCcw, Check, Edit3, Eye
@@ -36,10 +35,8 @@ export default function AppHeader({
   return (
     <header className="app-header">
       <div className="app-header__brand">
-        <div className="app-header__logo">
-          <img src={jarvardIcon} alt="Jarvard" className="app-header__logo-image" />
-        </div>
-        <span className="app-header__title">Jarvard Resume Maker</span>
+        <img src="/favicon.svg" alt="" className="app-header__brand-icon" aria-hidden="true" />
+        <span className="app-header__title">el<span className="app-header__title-cv">CV</span>ate</span>
         {saved && (
           <span className="status-pill">
             <Check size={12} /> Saved

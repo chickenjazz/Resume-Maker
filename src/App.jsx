@@ -36,7 +36,7 @@ export default function App() {
     if (name && !name.startsWith('[')) {
       document.title = `${name} – Resume`;
     } else {
-      document.title = 'Resume Maker';
+      document.title = 'elCVate';
     }
   }, [data?.header?.name]);
 
@@ -55,7 +55,7 @@ export default function App() {
       setIsEditing(false);
     });
 
-    // Temporarily clear page title so browser header doesn't print "Resume Maker"
+    // Temporarily clear page title so browser header doesn't print "elCVate"
     document.title = '';
 
     const restoreState = () => {

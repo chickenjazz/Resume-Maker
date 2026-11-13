@@ -142,10 +142,23 @@ body {
 }
 
 .app-header__title {
-  font-family: var(--font-heading);
+  font-family: var(--ui-font), Inter, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
   font-size: 16px;
   font-weight: 700;
   letter-spacing: -0.02em;
+}
+
+.app-header__brand-icon {
+  width: 28px;
+  height: 28px;
+  display: block;
+  border-radius: 7px;
+  object-fit: cover;
+  background: #ffffff;
+}
+
+.app-header__title-cv {
+  color: var(--accent);
 }
 
 .app-header__actions {
