@@ -4,10 +4,17 @@ import { initialResumeData } from './data/resumeData';
 import AppHeader from './components/AppHeader';
 import EditorPanel from './components/EditorPanel';
 import ResumePreview from './components/ResumePreview';
+import AppModal from './components/AppModal';
+import NotFoundPage from './components/NotFoundPage';
 
 const STORAGE_KEY = 'react_resume_data_v3';
 
 export default function App() {
+  const currentPath = window.location.pathname.replace(/\/+$/, '') || '/';
+  if (currentPath !== '/' && currentPath !== '/index.html') {
+    return <NotFoundPage />;
+  }
+
   const [data, setData] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
@@ -19,6 +26,7 @@ export default function App() {
   const [isEditing, setIsEditing] = useState(true);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [saved, setSaved] = useState(false);
+  const [modal, setModal] = useState(null);
 
   // Persist to localStorage
   useEffect(() => {
@@ -36,7 +44,7 @@ export default function App() {
     if (name && !name.startsWith('[')) {
       document.title = `${name} – Resume`;
     } else {
-      document.title = 'elCVate';
+      document.title = 'elCVate – Resume Builder';
     }
   }, [data?.header?.name]);
 
@@ -85,10 +93,17 @@ export default function App() {
   }, [isEditing]);
 
   const handleReset = useCallback(() => {
-    if (confirm('Reset to the default template? All edits will be lost.')) {
+    setModal({
+      title: 'Reset resume?',
+      message: 'All current edits will be lost and the default resume data will be restored.',
+      confirmLabel: 'Reset Resume',
+      cancelLabel: 'Keep Editing',
+      onConfirm: () => {
       setData(initialResumeData);
       localStorage.removeItem(STORAGE_KEY);
-    }
+      setModal(null);
+      }
+    });
   }, []);
 
   const handleExport = useCallback(() => {
@@ -105,7 +120,12 @@ export default function App() {
     if (importedData?.header) {
       setData(importedData);
     } else {
-      alert('Invalid resume data file.');
+      setModal({
+        title: 'Import failed',
+        message: 'That file does not contain valid elCVate resume data.',
+        confirmLabel: 'Close',
+        onConfirm: () => setModal(null)
+      });
     }
   }, []);
 
@@ -213,6 +233,22 @@ export default function App() {
           />
         </main>
       </div>
+
+      <footer className="app-footer">
+        <span>elCVate</span>
+        <span>Resume builder by jrm</span>
+      </footer>
+
+      {modal && (
+        <AppModal
+          title={modal.title}
+          message={modal.message}
+          confirmLabel={modal.confirmLabel}
+          cancelLabel={modal.cancelLabel}
+          onConfirm={modal.onConfirm}
+          onCancel={() => setModal(null)}
+        />
+      )}
     </div>
   );
 }

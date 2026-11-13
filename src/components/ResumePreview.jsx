@@ -1,6 +1,7 @@
 import React from 'react';
 import { Plus, Trash2, RotateCcw, ChevronUp, ChevronDown } from 'lucide-react';
 import EditableText from './EditableText';
+import AppModal from './AppModal';
 
 export default function ResumePreview({
   data,
@@ -12,6 +13,7 @@ export default function ResumePreview({
   const hiddenSections = data.hiddenSections || [];
   const hiddenItems = data.hiddenItems || [];
   const accentColor = data.theme?.accent || '#153b6b';
+  const [deleteRequest, setDeleteRequest] = React.useState(null);
 
   const showSection = (key) => !hiddenSections.includes(key);
   const showItem = (id) => !hiddenItems.includes(id);
@@ -236,14 +238,14 @@ export default function ResumePreview({
   };
 
   const deleteExpEntry = (idOrIdx) => {
-    if (confirm('Delete this experience entry?')) {
-      update(d => {
+    setDeleteRequest({
+      title: 'Delete work experience?',
+      message: 'This experience entry and its bullet points will be permanently removed.',
+      action: () => update(d => {
         const idx = getExpIdx(d, idOrIdx);
-        if (idx !== -1 && idx !== undefined) {
-          d.experience.splice(idx, 1);
-        }
-      });
-    }
+        if (idx !== -1 && idx !== undefined) d.experience.splice(idx, 1);
+      })
+    });
   };
 
   const addExperience = () => {
@@ -311,11 +313,13 @@ export default function ResumePreview({
   };
 
   const deleteEduEntry = (eduIdx) => {
-    if (confirm('Delete this education entry?')) {
-      update(d => {
+    setDeleteRequest({
+      title: 'Delete education entry?',
+      message: 'This education entry and its details will be permanently removed.',
+      action: () => update(d => {
         d.education.splice(eduIdx, 1);
-      });
-    }
+      })
+    });
   };
 
   const addEducation = () => {
@@ -1309,6 +1313,21 @@ export default function ResumePreview({
             ))}
           </ul>
         </section>
+      )}
+
+      {deleteRequest && (
+        <AppModal
+          title={deleteRequest.title}
+          message={deleteRequest.message}
+          confirmLabel="Delete"
+          confirmClassName="btn--danger-solid"
+          cancelLabel="Cancel"
+          onConfirm={() => {
+            deleteRequest.action();
+            setDeleteRequest(null);
+          }}
+          onCancel={() => setDeleteRequest(null)}
+        />
       )}
     </div>
   );
