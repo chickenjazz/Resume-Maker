@@ -946,6 +946,7 @@ export default function ResumePreview({
                           isEditing={isEditing}
                           label="Description"
                           placeholder="Honors, coursework, or achievements..."
+                          multiline={true}
                         />
                       </span>
 
@@ -1198,6 +1199,7 @@ export default function ResumePreview({
                     isEditing={isEditing}
                     label="Project Description & Tech Stack"
                     placeholder="Project description, architecture, and results..."
+                    multiline={true}
                   />
                 </span>
 
@@ -1275,6 +1277,7 @@ export default function ResumePreview({
                     isEditing={isEditing}
                     label="Skills List"
                     placeholder="List of technologies, frameworks, and languages..."
+                    multiline={true}
                   />
                 </span>
 
