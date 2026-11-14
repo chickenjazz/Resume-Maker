@@ -210,46 +210,50 @@ export default function EditorPanel({
         <div className="sidebar-header__info">
           <h2 className="sidebar-title">
             <Eye size={18} />
-            Visibility Controls
+            Sections
           </h2>
-          <p className="sidebar-subtitle">
-            Toggle sections and specific individual items on or off.
-          </p>
         </div>
       </div>
 
       {/* Bulk actions */}
       <div className="sidebar-actions-bar">
         <button className="btn-link" onClick={showAll}>
-          Show All Items
+          Show all
         </button>
       </div>
 
-      <div className="sidebar-color-card">
-        <div className="sidebar-color-card__header">
-          <span className="sidebar-color-card__title">Resume Color</span>
-          <span className="sidebar-color-card__value">{accentColor}</span>
-        </div>
-        <div className="sidebar-color-picker">
-          <input
-            type="color"
-            value={accentColor}
-            aria-label="Choose resume accent color"
-            onChange={(event) => setAccentColor(event.target.value)}
-          />
-          <span>Name, headings &amp; divider lines</span>
+      <div className="sidebar-color-card" style={{ '--swatch-color': accentColor }}>
+        <div className="sidebar-color-card__top">
+          <label
+            className="sidebar-color-swatch"
+            style={{ '--swatch-color': accentColor }}
+            title="Choose accent color"
+          >
+            <input
+              type="color"
+              value={accentColor}
+              aria-label="Choose resume accent color"
+              onChange={(event) => setAccentColor(event.target.value)}
+            />
+          </label>
+          <div className="sidebar-color-card__copy">
+            <span className="sidebar-color-card__eyebrow">Accent</span>
+            <strong className="sidebar-color-card__value">{accentColor.toUpperCase()}</strong>
+          </div>
         </div>
         <div className="sidebar-color-presets" aria-label="Resume color presets">
-          {['#153b6b', '#222222', '#6b1f2b', '#1f5b4d', '#5b4636'].map(color => (
+          {['#153b6b', '#2563eb', '#222222', '#6b1f2b', '#1f5b4d', '#5b4636'].map(color => (
             <button
               key={color}
               type="button"
               className={`color-preset ${accentColor.toLowerCase() === color ? 'is-selected' : ''}`}
-              style={{ backgroundColor: color }}
+              style={{ '--preset-color': color }}
               aria-label={`Use ${color}`}
               title={color}
               onClick={() => setAccentColor(color)}
-            />
+            >
+              <span />
+            </button>
           ))}
         </div>
       </div>
