@@ -2696,3 +2696,137 @@ input:focus-visible,
     padding: 16px 12px;
   }
 }
+
+/* Modern command-bar header — scoped to the app chrome only. */
+.app-header {
+  position: relative;
+  height: 64px;
+  min-height: 64px;
+  padding: 0 26px;
+  background: #0b1736;
+  border-bottom: 1px solid rgba(176, 196, 228, 0.14);
+}
+
+.app-header::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, #2563eb 0%, #60a5fa 34%, rgba(96, 165, 250, 0) 78%);
+  opacity: 0.9;
+}
+
+.app-header__brand {
+  gap: 11px;
+}
+
+.app-header__brand-icon {
+  width: 32px;
+  height: 32px;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  border-radius: 9px;
+  box-shadow: 0 0 0 4px rgba(96, 165, 250, 0.12);
+}
+
+.app-header__brand-copy {
+  gap: 3px;
+}
+
+.app-header__title {
+  font-size: 18px;
+  font-weight: 760;
+  letter-spacing: -0.045em;
+  line-height: 1;
+}
+
+.app-header__title-cv {
+  color: #60a5fa;
+}
+
+.app-header__tagline {
+  color: #8ea1c2;
+  font-size: 9px;
+  letter-spacing: 0.11em;
+  line-height: 1;
+}
+
+.app-header__actions {
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid rgba(178, 197, 228, 0.14);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.055);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.app-header .btn {
+  min-height: 32px;
+  padding: 7px 10px;
+  border-radius: 7px;
+  font-size: 11px;
+  letter-spacing: -0.01em;
+}
+
+.app-header .btn--ghost {
+  border-color: transparent;
+  background: transparent;
+  color: #b7c5da;
+}
+
+.app-header .btn--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+}
+
+.app-header .btn--edit-toggle {
+  border-color: rgba(96, 165, 250, 0.28);
+  background: rgba(37, 99, 235, 0.17);
+  color: #bfdbfe;
+}
+
+.app-header .btn--edit-toggle:hover,
+.app-header .btn--edit-toggle.btn--edit-active {
+  border-color: #3b82f6;
+  background: #2563eb;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.28);
+}
+
+.app-header .btn--primary {
+  border-color: #3b82f6;
+  background: #3b82f6;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.22);
+}
+
+.app-header .btn--primary:hover {
+  border-color: #60a5fa;
+  background: #2563eb;
+}
+
+.app-header .status-pill {
+  margin-left: 8px;
+  border: 1px solid rgba(110, 231, 183, 0.18);
+  border-radius: 7px;
+  background: rgba(16, 185, 129, 0.1);
+  color: #86efac;
+}
+
+@media screen and (max-width: 720px) {
+  .app-header {
+    height: auto;
+    min-height: 56px;
+    padding: 8px 12px;
+  }
+
+  .app-header__actions {
+    padding: 3px;
+    border-radius: 8px;
+  }
+
+  .app-header .btn {
+    min-height: 30px;
+    padding: 6px 7px;
+  }
+}
