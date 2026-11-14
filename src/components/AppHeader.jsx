@@ -62,6 +62,8 @@ export default function AppHeader({
         <button
           className="btn btn--ghost"
           onClick={onToggleSidebar}
+          aria-expanded={sidebarOpen}
+          aria-controls="editor-sidebar"
           title={sidebarOpen ? 'Hide sidebar' : 'Show sidebar'}
         >
           {sidebarOpen ? <PanelLeftClose size={16} /> : <PanelLeftOpen size={16} />}

@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import {
   Eye, EyeOff, ChevronDown, ChevronRight,
   FileText, Briefcase, GraduationCap, Award,
-  BookOpen, FolderKanban, Wrench, UserCheck, GripVertical, Trash2
+  BookOpen, FolderKanban, Wrench, UserCheck, GripVertical, Trash2,
+  Search, X
 } from 'lucide-react';
 import AppModal from './AppModal';
 
@@ -25,6 +26,7 @@ export default function EditorPanel({
     skills: true
   });
   const [deleteTarget, setDeleteTarget] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   const toggleAccordion = (key) => {
     setExpandedSections(prev => ({ ...prev, [key]: !prev[key] }));
@@ -204,22 +206,65 @@ export default function EditorPanel({
     }
   ];
 
+  const normalizedSearch = searchQuery.trim().toLowerCase();
+  const totalItems = sectionsConfig.reduce((count, section) => count + section.items.length, 0);
+  const visibleItems = sectionsConfig.reduce(
+    (count, section) => count + section.items.filter(item => isItemVisible(item.id)).length,
+    0
+  );
+  const searchHasResults = !normalizedSearch || sectionsConfig.some(section => (
+    section.label.toLowerCase().includes(normalizedSearch) || section.items.some(item => (
+      `${item.label || ''} ${item.sub || ''} ${item.preview || ''}`.toLowerCase().includes(normalizedSearch)
+    ))
+  ));
+
   return (
-    <aside className={`editor-sidebar ${isOpen ? 'open' : ''}`}>
+    <aside
+      id="editor-sidebar"
+      className={`editor-sidebar ${isOpen ? 'open' : ''}`}
+      aria-label="Resume sections"
+      aria-hidden={!isOpen}
+    >
       <div className="sidebar-header">
         <div className="sidebar-header__info">
           <h2 className="sidebar-title">
             <Eye size={18} />
             Sections
           </h2>
+          <span className="sidebar-header__summary">
+            {visibleItems} of {totalItems} items visible
+          </span>
         </div>
       </div>
 
       {/* Bulk actions */}
       <div className="sidebar-actions-bar">
-        <button className="btn-link" onClick={showAll}>
+        <span className="sidebar-actions-bar__label">Manage visibility</span>
+        <button className="btn-link" onClick={showAll} disabled={hiddenSections.length === 0 && hiddenItems.length === 0}>
           Show all
         </button>
+      </div>
+
+      <div className="sidebar-search">
+        <Search size={15} aria-hidden="true" />
+        <input
+          type="search"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
+          placeholder="Find a section or item"
+          aria-label="Find a resume section or item"
+        />
+        {searchQuery && (
+          <button
+            type="button"
+            className="sidebar-search__clear"
+            onClick={() => setSearchQuery('')}
+            aria-label="Clear section search"
+            title="Clear search"
+          >
+            <X size={14} />
+          </button>
+        )}
       </div>
 
       <div className="sidebar-color-card" style={{ '--swatch-color': accentColor }}>
@@ -261,9 +306,16 @@ export default function EditorPanel({
       {/* Sections and Items List */}
       <div className="sidebar-sections-list">
         {sectionsConfig.map(({ key, label, icon: Icon, items, isAlwaysSection }) => {
+          const sectionMatches = label.toLowerCase().includes(normalizedSearch);
+          const matchingItems = normalizedSearch && !sectionMatches
+            ? items.filter(item => `${item.label || ''} ${item.sub || ''} ${item.preview || ''}`.toLowerCase().includes(normalizedSearch))
+            : items;
+          if (normalizedSearch && !sectionMatches && matchingItems.length === 0) return null;
+
           const sectionVisible = isAlwaysSection || isSectionVisible(key);
           const isExpanded = expandedSections[key];
-          const hasItems = items.length > 0;
+          const hasItems = matchingItems.length > 0;
+          const shouldExpand = isExpanded || Boolean(normalizedSearch);
 
           return (
             <div
@@ -284,13 +336,13 @@ export default function EditorPanel({
                     <span className="section-label">{label}</span>
                     {hasItems && (
                       <span className="section-count">
-                        {items.filter(it => isItemVisible(it.id)).length} of {items.length} visible
+                        {matchingItems.filter(it => isItemVisible(it.id)).length} of {matchingItems.length} visible
                       </span>
                     )}
                   </div>
                   {hasItems && (
                     <span className="accordion-arrow">
-                      {isExpanded ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+                      {shouldExpand ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
                     </span>
                   )}
                 </div>
@@ -308,9 +360,9 @@ export default function EditorPanel({
               </div>
 
               {/* Specific Items List */}
-              {sectionVisible && hasItems && isExpanded && (
+              {sectionVisible && hasItems && shouldExpand && (
                 <div className="item-toggle-list">
-                  {items.map((item) => {
+                  {matchingItems.map((item) => {
                     const itemActive = isItemVisible(item.id);
                     return (
                       <div
@@ -365,6 +417,13 @@ export default function EditorPanel({
             </div>
           );
         })}
+        {normalizedSearch && !searchHasResults && (
+          <div className="sidebar-empty-search">
+            <Search size={16} aria-hidden="true" />
+            <strong>No matches</strong>
+            <span>Try a section name, company, or skill.</span>
+          </div>
+        )}
       </div>
 
       {deleteTarget && (

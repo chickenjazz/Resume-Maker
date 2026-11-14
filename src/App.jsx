@@ -48,6 +48,20 @@ export default function App() {
     }
   }, [data?.header?.name]);
 
+  // Keep the mobile sidebar easy to dismiss without taking focus away from the editor.
+  useEffect(() => {
+    if (!sidebarOpen) return undefined;
+
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') {
+        setSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [sidebarOpen]);
+
   // Execute clean print without header title, URL, or edit artifacts
   const handlePrint = useCallback(() => {
     // Flush any currently focused contentEditable element
@@ -215,6 +229,15 @@ export default function App() {
       />
 
       <div className="app-body">
+        {sidebarOpen && (
+          <button
+            type="button"
+            className="sidebar-backdrop"
+            aria-label="Close sections sidebar"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
+
         <EditorPanel
           data={data}
           setData={setData}
