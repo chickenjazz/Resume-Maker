@@ -12,7 +12,7 @@ export default function ResumePreview({
   const { header, summary, experience, education, certifications, onlineCourses, projects, courseProjects, skills } = data;
   const hiddenSections = data.hiddenSections || [];
   const hiddenItems = data.hiddenItems || [];
-  const accentColor = data.theme?.accent || '#153b6b';
+  const accentColor = data.theme?.accent || '#9a3412';
   const [deleteRequest, setDeleteRequest] = React.useState(null);
 
   const showSection = (key) => !hiddenSections.includes(key);

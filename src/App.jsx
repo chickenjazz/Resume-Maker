@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { flushSync } from 'react-dom';
 import { initialResumeData } from './data/resumeData';
 import AppHeader from './components/AppHeader';
@@ -6,6 +6,8 @@ import EditorPanel from './components/EditorPanel';
 import ResumePreview from './components/ResumePreview';
 import AppModal from './components/AppModal';
 import NotFoundPage from './components/NotFoundPage';
+import Dither from './components/Dither';
+import JobStickers from './components/JobStickers';
 
 const STORAGE_KEY = 'react_resume_data_v3';
 
@@ -18,7 +20,13 @@ export default function App() {
   const [data, setData] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) return JSON.parse(saved);
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        if (parsed?.theme?.accent?.toLowerCase() === '#153b6b') {
+          parsed.theme = { ...parsed.theme, accent: '#9a3412' };
+        }
+        return parsed;
+      }
     } catch (e) { /* ignore */ }
     return initialResumeData;
   });
@@ -27,6 +35,7 @@ export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [saved, setSaved] = useState(false);
   const [modal, setModal] = useState(null);
+  const previewRef = useRef(null);
 
   // Persist to localStorage
   useEffect(() => {
@@ -226,6 +235,7 @@ export default function App() {
         onImport={handleImport}
         onReset={handleReset}
         saved={saved}
+        scrollTarget={previewRef}
       />
 
       <div className="app-body">
@@ -247,14 +257,34 @@ export default function App() {
           onAddItem={handleAddItem}
         />
 
-        <main className="preview-area">
-          <ResumePreview
-            data={data}
-            setData={setData}
-            isEditing={isEditing}
-            onAddItem={handleAddItem}
-          />
-        </main>
+        <div className="preview-workspace">
+          <div className="preview-workspace__background" aria-hidden="true">
+            <Dither
+              waveColor="#f97316"
+              backgroundColor="#efeae0"
+              ditherMode="halftone"
+              colorNum={4}
+              pixelSize={2}
+              waveSpeed={0.05}
+              waveFrequency={3}
+              waveAmplitude={0.3}
+              mouseEffect="reveal"
+              mouseRadius={0.3}
+              contrast={1.3}
+              palette={[]}
+              dpr={1}
+            />
+          </div>
+          <JobStickers scrollerRef={previewRef} />
+          <main className="preview-area" ref={previewRef}>
+            <ResumePreview
+              data={data}
+              setData={setData}
+              isEditing={isEditing}
+              onAddItem={handleAddItem}
+            />
+          </main>
+        </div>
       </div>
 
       <footer className="app-footer">

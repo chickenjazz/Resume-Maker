@@ -60,7 +60,7 @@ export default function EditorPanel({
     }));
   };
 
-  const accentColor = data.theme?.accent || '#153b6b';
+  const accentColor = data.theme?.accent || '#9a3412';
 
   const setAccentColor = (accent) => {
     setData(prev => ({
@@ -287,7 +287,7 @@ export default function EditorPanel({
           </div>
         </div>
         <div className="sidebar-color-presets" aria-label="Resume color presets">
-          {['#153b6b', '#2563eb', '#222222', '#6b1f2b', '#1f5b4d', '#5b4636'].map(color => (
+          {['#9a3412', '#c2410c', '#222222', '#6b1f2b', '#1f5b4d', '#5b4636'].map(color => (
             <button
               key={color}
               type="button"

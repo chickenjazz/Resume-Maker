@@ -1,97 +1,44 @@
 import React, { useRef } from 'react';
-import {
-  PanelLeftClose, PanelLeftOpen,
-  Printer, Download, Upload, RotateCcw, Check, Edit3, Eye
-} from 'lucide-react';
+import { PanelLeftClose, PanelLeftOpen, Printer, Download, Upload, RotateCcw, Check, Edit3, Eye } from 'lucide-react';
+import { Header } from '@/components/ui/header-2';
 
-export default function AppHeader({
-  sidebarOpen,
-  onToggleSidebar,
-  isEditing,
-  onToggleEdit,
-  onPrint,
-  onExport,
-  onImport,
-  onReset,
-  saved
-}) {
+export default function AppHeader({ sidebarOpen, onToggleSidebar, isEditing, onToggleEdit, onPrint, onExport, onImport, onReset, saved, scrollTarget }) {
   const fileRef = useRef(null);
-
-  const handleFile = (e) => {
-    const file = e.target.files?.[0];
+  const handleFile = (event) => {
+    const file = event.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = (ev) => {
-      try {
-        onImport(JSON.parse(ev.target.result));
-      } catch {
-        alert('Invalid JSON file.');
-      }
+    reader.onload = () => {
+      try { onImport(JSON.parse(reader.result)); }
+      catch { onImport(null); }
     };
+    reader.onerror = () => onImport(null);
     reader.readAsText(file);
-    e.target.value = '';
+    event.target.value = '';
   };
-
+  const actions = [
+    { label: isEditing ? 'Preview' : 'Edit', icon: isEditing ? <Eye /> : <Edit3 />, onClick: onToggleEdit, variant: 'outline' },
+    { label: sidebarOpen ? 'Hide sidebar' : 'Show sidebar', icon: sidebarOpen ? <PanelLeftClose /> : <PanelLeftOpen />, onClick: onToggleSidebar, expanded: sidebarOpen, controls: 'editor-sidebar' },
+    { label: 'Export', icon: <Download />, onClick: onExport },
+    { label: 'Import', icon: <Upload />, onClick: () => fileRef.current?.click() },
+    { label: 'Reset', icon: <RotateCcw />, onClick: onReset },
+    { label: 'Print / PDF', icon: <Printer />, onClick: onPrint, variant: 'default' },
+  ];
   return (
-    <header className="app-header">
-      <div className="app-header__brand">
-        <img src="/favicon.svg" alt="" className="app-header__brand-icon" aria-hidden="true" />
-        <div className="app-header__brand-copy">
-          <span className="app-header__title">el<span className="app-header__title-cv">CV</span>ate</span>
-          <span className="app-header__tagline">by jrm</span>
-        </div>
-        {saved && (
-          <span className="status-pill">
-            <Check size={12} /> Saved
+    <div className="workspace-header-shell">
+      <Header scrollTarget={scrollTarget} actions={actions} brand={
+        <div className="flex shrink-0 items-center gap-3">
+          <img src="/favicon.svg" alt="" className="size-8 rounded-lg" aria-hidden="true" />
+          <div className="flex flex-col gap-0.5">
+            <span className="text-lg font-bold leading-none tracking-tight text-primary">elCVate</span>
+            <span className="text-[10px] leading-none text-muted-foreground">Resume builder by jrm</span>
+          </div>
+          <span role="status" className="hidden w-14 items-center gap-1 text-xs text-muted-foreground lg:flex">
+            {saved && <><Check className="size-3" /> Saved</>}
           </span>
-        )}
-      </div>
-
-      <div className="app-header__actions">
-        {/* Primary Edit Mode Toggle Button */}
-        <button
-          className={`btn btn--edit-toggle ${isEditing ? 'btn--edit-active' : ''}`}
-          onClick={onToggleEdit}
-          title={isEditing ? 'Click to exit edit mode and preview the resume' : 'Click to enter edit mode and click anywhere to edit'}
-        >
-          {isEditing ? <Eye size={16} /> : <Edit3 size={16} />}
-          <span>{isEditing ? 'Preview' : 'Edit'}</span>
-        </button>
-
-        {/* Sidebar Toggle */}
-        <button
-          className="btn btn--ghost"
-          onClick={onToggleSidebar}
-          aria-expanded={sidebarOpen}
-          aria-controls="editor-sidebar"
-          title={sidebarOpen ? 'Hide sidebar' : 'Show sidebar'}
-        >
-          {sidebarOpen ? <PanelLeftClose size={16} /> : <PanelLeftOpen size={16} />}
-          <span>{sidebarOpen ? 'Hide Sidebar' : 'Show Sidebar'}</span>
-        </button>
-
-        <button className="btn btn--ghost" onClick={onExport} title="Download resume as JSON">
-          <Download size={16} />
-          <span>Export</span>
-        </button>
-
-        <button className="btn btn--ghost" onClick={() => fileRef.current?.click()} title="Import existing resume JSON">
-          <Upload size={16} />
-          <span>Import</span>
-        </button>
-        <input type="file" ref={fileRef} onChange={handleFile} accept=".json" hidden />
-
-        <button className="btn btn--ghost" onClick={onReset} title="Reset to default template">
-          <RotateCcw size={16} />
-          <span>Reset</span>
-        </button>
-
-        {/* Print / Save to PDF */}
-        <button className="btn btn--primary" onClick={onPrint} title="Print or save as PDF">
-          <Printer size={16} />
-          <span>Print / PDF</span>
-        </button>
-      </div>
-    </header>
+        </div>
+      } />
+      <input aria-label="Import resume JSON" type="file" ref={fileRef} onChange={handleFile} accept=".json" hidden />
+    </div>
   );
 }

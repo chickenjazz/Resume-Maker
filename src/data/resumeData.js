@@ -1,6 +1,6 @@
 export const initialResumeData = {
   theme: {
-    accent: "#153b6b"
+    accent: "#9a3412"
   },
   hiddenSections: [],
   hiddenItems: [],
