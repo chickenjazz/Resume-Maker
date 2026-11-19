@@ -1,8 +1,9 @@
 import React, { useRef } from 'react';
-import { PanelLeftClose, PanelLeftOpen, Printer, Download, Upload, RotateCcw, Check, Edit3, Eye } from 'lucide-react';
+import { PanelLeftClose, PanelLeftOpen, Printer, Download, Upload, RotateCcw, Check } from 'lucide-react';
 import { Header } from '@/components/ui/header-2';
+import { Button } from '@/components/ui/button';
 
-export default function AppHeader({ sidebarOpen, onToggleSidebar, isEditing, onToggleEdit, onPrint, onExport, onImport, onReset, saved, scrollTarget }) {
+export default function AppHeader({ sidebarOpen, onToggleSidebar, onPrint, onExport, onImport, onReset, saved, scrollTarget }) {
   const fileRef = useRef(null);
   const handleFile = (event) => {
     const file = event.target.files?.[0];
@@ -17,21 +18,25 @@ export default function AppHeader({ sidebarOpen, onToggleSidebar, isEditing, onT
     event.target.value = '';
   };
   const actions = [
-    { label: isEditing ? 'Preview' : 'Edit', icon: isEditing ? <Eye /> : <Edit3 />, onClick: onToggleEdit, variant: 'outline' },
-    { label: sidebarOpen ? 'Hide sidebar' : 'Show sidebar', icon: sidebarOpen ? <PanelLeftClose /> : <PanelLeftOpen />, onClick: onToggleSidebar, expanded: sidebarOpen, controls: 'editor-sidebar' },
     { label: 'Export', icon: <Download />, onClick: onExport },
     { label: 'Import', icon: <Upload />, onClick: () => fileRef.current?.click() },
     { label: 'Reset', icon: <RotateCcw />, onClick: onReset },
-    { label: 'Print / PDF', icon: <Printer />, onClick: onPrint, variant: 'default' },
+    { label: 'Save', icon: <Printer />, onClick: onPrint, variant: 'default' },
   ];
   return (
     <div className="workspace-header-shell">
-      <Header scrollTarget={scrollTarget} actions={actions} brand={
+      <Header scrollTarget={scrollTarget} actions={actions} leading={
+        <Button variant="ghost" className="h-11 w-11 shrink-0 px-0"
+          onClick={onToggleSidebar} aria-expanded={sidebarOpen} aria-controls="editor-sidebar"
+          aria-label={sidebarOpen ? 'Hide sidebar' : 'Show sidebar'}
+          title={sidebarOpen ? 'Hide sidebar' : 'Show sidebar'}>
+          {sidebarOpen ? <PanelLeftClose /> : <PanelLeftOpen />}
+        </Button>
+      } brand={
         <div className="flex shrink-0 items-center gap-3">
-          <img src="/favicon.svg" alt="" className="size-8 rounded-lg" aria-hidden="true" />
           <div className="flex flex-col gap-0.5">
-            <span className="text-lg font-bold leading-none tracking-tight text-primary">elCVate</span>
-            <span className="text-[10px] leading-none text-muted-foreground">Resume builder by jrm</span>
+            <span className="text-xl font-bold leading-none tracking-tight text-primary lg:text-[22px]">el<span className="text-orange-700">CV</span>ate</span>
+            <span className="hidden text-[10px] leading-none text-muted-foreground lg:block">Resume builder by jrm</span>
           </div>
           <span role="status" className="hidden w-14 items-center gap-1 text-xs text-muted-foreground lg:flex">
             {saved && <><Check className="size-3" /> Saved</>}

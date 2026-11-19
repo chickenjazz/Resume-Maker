@@ -6,12 +6,12 @@ import './JobStickers.css';
 gsap.registerPlugin(ScrollTrigger);
 
 const stickers = [
-  { name: 'stethoscope', cell: '0% 0%', angle: -14, depth: 0.65 },
-  { name: 'wrench', cell: '50% 0%', angle: 17, depth: 1 },
-  { name: 'chef', cell: '100% 0%', angle: -10, depth: 0.4 },
-  { name: 'laptop', cell: '0% 100%', angle: 12, depth: 0.75 },
-  { name: 'hardhat', cell: '50% 100%', angle: -16, depth: 1.15 },
-  { name: 'paintbrush', cell: '100% 100%', angle: 15, depth: 0.5 },
+  { name: 'stethoscope', cell: '0% 0%', angle: -22, depth: 0.65 },
+  { name: 'wrench', cell: '50% 0%', angle: 32, depth: 1 },
+  { name: 'chef', cell: '100% 0%', angle: 15, depth: 0.4 },
+  { name: 'laptop', cell: '0% 100%', angle: -17, depth: 0.75 },
+  { name: 'hardhat', cell: '50% 100%', angle: 24, depth: 1.15 },
+  { name: 'paintbrush', cell: '100% 100%', angle: -28, depth: 0.5 },
 ];
 
 export default function JobStickers({ scrollerRef }) {

@@ -24,20 +24,23 @@
 
 :root {
   --background: #fffcf8;
-  --foreground: #431407;
-  --primary: #c2410c;
+  --foreground: #153b6b;
+  --primary: #153b6b;
   --primary-foreground: #ffffff;
-  --secondary: #ffedd5;
-  --secondary-foreground: #9a3412;
-  --accent: #fff1e6;
-  --accent-foreground: #9a3412;
+  --secondary: #edf2f8;
+  --secondary-foreground: #153b6b;
+  --accent: #edf2f8;
+  --accent-foreground: #112a4a;
   --muted: #f5f1eb;
   --muted-foreground: #786b62;
   --destructive: #b91c1c;
   --destructive-foreground: #ffffff;
   --border: #e9d9ca;
-  --input: #dfc5ae;
-  --ring: #c2410c;
+  --input: #bdcbdc;
+  --ring: #153b6b;
+  --action-navy: #153b6b;
+  --action-navy-hover: #112a4a;
+  --action-navy-soft: #edf2f8;
   --radius: 0.5rem;
 }
 
@@ -50,6 +53,12 @@
     background: #fff8f0;
     border-bottom: 1px solid var(--border);
     font-family: Inter, 'Segoe UI', sans-serif;
+  }
+
+  /* Keep the floating toolbar, but remove the full-width chrome on scroll. */
+  .workspace-header-shell:has(header[data-scrolled="true"]) {
+    background: transparent;
+    border-bottom-color: transparent;
   }
 
   [data-ui="button"] {
@@ -66,11 +75,85 @@
 
   .header-menu { font-family: Inter, 'Segoe UI', sans-serif; }
 
+  .edit-mode-toggle[data-ui="button"] {
+    position: absolute;
+    right: max(calc(16px + env(safe-area-inset-right, 0px)), calc((100% - 8.5in) / 2 - 72px));
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 310;
+    width: 52px;
+    height: 52px;
+    padding: 0;
+    border-radius: 50%;
+    box-shadow: 0 4px 16px rgb(21 59 107 / 24%);
+  }
+
+  .edit-mode-toggle[data-ui="button"] svg { width: 22px; height: 22px; }
+
+  .edit-mode-toggle__icon {
+    display: inline-flex;
+    animation: edit-mode-icon-in 180ms ease-out;
+  }
+
+  @keyframes edit-mode-icon-in {
+    from { opacity: 0; transform: scale(0.8) rotate(-12deg); }
+    to { opacity: 1; transform: scale(1) rotate(0); }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    @media (hover: hover) and (pointer: fine) {
+      .edit-mode-toggle:hover { transform: translateY(-2px); }
+    }
+    .edit-mode-toggle:active { transform: scale(0.94); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .edit-mode-toggle__icon { animation: none; }
+  }
+
+  @media screen {
+    .app .editor-sidebar,
+    .app .preview-area {
+      padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+      scroll-padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px));
+    }
+  }
+
+  .btn--primary, .toggle-switch input:checked + .toggle-switch__slider {
+    background: var(--action-navy);
+  }
+
+  .btn--primary:hover { background: var(--action-navy-hover); }
+
+  .btn-add-inline, .btn-grad-toggle {
+    color: var(--action-navy);
+    background: var(--action-navy-soft);
+    border-color: #bdcbdc;
+  }
+
+  .btn-add-inline:hover, .btn-grad-toggle:hover {
+    background: var(--action-navy);
+    color: #ffffff;
+  }
+
+  .btn-add-bullet, .btn-link, .sidebar-actions-bar .btn-link, .btn-item-eye.visible {
+    color: var(--action-navy);
+  }
+
+  .btn-add-bullet:hover, .btn-move-bullet:hover:not(:disabled) {
+    color: var(--action-navy);
+    background: var(--action-navy-soft);
+    border-color: var(--action-navy);
+  }
+
+  button:focus-visible {
+    outline-color: var(--action-navy);
+  }
+
   @media (max-width: 1023px) {
     .workspace-header-shell { padding: 0; }
   }
 
   @media print {
-    .workspace-header-shell, .header-menu, .header-menu-overlay { display: none !important; }
+    .workspace-header-shell, .header-menu, .header-menu-overlay, .edit-mode-toggle { display: none !important; }
   }
 }

@@ -1,0 +1,23 @@
+{
+  "asset": "job-stickers-minimal.png",
+  "method": "Built-in image generation; style-transfer edit",
+  "reference": "job-stickers-comic.png",
+  "transparentBackground": true,
+  "layout": {
+    "columns": 3,
+    "rows": 3
+  },
+  "subjects": [
+    "stethoscope",
+    "wrench",
+    "chef",
+    "laptop",
+    "hardhat",
+    "paintbrush",
+    "briefcase",
+    "microscope",
+    "graduation"
+  ],
+  "prompt": "Use case: style-transfer.\nEdit target: the supplied six-sticker comic sprite sheet. Redesign it into ONE square transparent sprite atlas of NINE minimal professional job stickers in an exact 3-column by 3-row grid, nine equally sized square cells. This single atlas is the production asset for a resume editor.\nOrder, left to right: row 1 stethoscope (navy blue accent), wrench (orange accent), chef's toque (navy blue accent); row 2 laptop (navy blue accent), construction hard hat (orange accent), artist paintbrush (orange accent); row 3 briefcase (orange accent), laboratory microscope (navy blue accent), graduation mortarboard cap with tassel (navy blue accent).\nRetain recognizable silhouettes and 1990s comic HALFTONE print style, but simplify considerably: clean confident outlines, large white highlight areas, only one or two flat shadow shapes per object filled with clearly spaced round halftone dots. Restrained screenprint illustration, minimal internal details, no scratchy crosshatching, no dense gritty texture, no heavy 3D rendering. No anthropomorphic faces.\nREMOVE ALL detached triple action lines / radiating lines that accompany the existing stickers. Absolutely NO motion lines, speed lines, rays, glints, sparkle stars, decorative ticks or floating marks beside any sticker. Only the nine objects.\nPalette exclusively pure white, deep navy #153b6b / #112a4a, and orange #f97316 / #c2410c. Each sticker predominantly white with its assigned single accent; fine dark navy outlines unify all objects. No gray, brown, green, teal, purple or yellow fills. A small clean white die-cut rim around each silhouette. No drop shadows.\nComposition: square canvas, exact equal 3x3 cells. Center each whole object in its cell; leave at least 15% of the cell size as empty transparent padding on EVERY edge. All nine have comparable optical size within their cells; varying displayed sizes will be handled in CSS. No crossing cell boundaries, no clipping. All objects separate, no extra props.\nThe area outside the object silhouettes MUST be genuinely transparent alpha, including gaps between the stethoscope tubing and microscope parts. NO gradient backdrop, gray backdrop, checkerboard or paper backdrop. No text, labels, watermark or border.",
+  "refinementPrompt": "Edit this nine-sticker sprite atlas. Keep exactly the same nine subjects, their 3x3 cell positions, navy/white versus orange/white color assignments, simple shapes and sparse halftone shading. Make the transparent cutouts perfectly clean: remove ALL detached flecks, blue pixels, noise, white speckles and grungy halos outside each object's narrow white die-cut silhouette. Everything outside those nine clean silhouettes must have alpha 0, completely empty. No background, shadow, glow, motion lines, stars or extra marks. Preserve fully opaque white areas INSIDE the stickers. Shrink each sticker slightly within its own equal cell so every cell has clear 12% transparent margins on every edge. Exact square 3x3 sprite grid, centered objects. Keep all nine intact. This is a crisp minimal web illustration atlas, no distressed print effects outside the objects."
+}

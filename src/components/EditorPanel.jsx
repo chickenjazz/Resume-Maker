@@ -287,7 +287,7 @@ export default function EditorPanel({
           </div>
         </div>
         <div className="sidebar-color-presets" aria-label="Resume color presets">
-          {['#9a3412', '#c2410c', '#222222', '#6b1f2b', '#1f5b4d', '#5b4636'].map(color => (
+          {['#9a3412', '#153b6b', '#222222', '#6b1f2b', '#1f5b4d', '#5b4636'].map(color => (
             <button
               key={color}
               type="button"

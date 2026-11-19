@@ -42,12 +42,14 @@ and unrelated UI effects are outside this integration's scope.
 
 ## Job sticker background
 
-The job stickers use a refined 1990s comic print style: white and tonal orange,
-warm charcoal outlines, halftone shading, screen-tone dots and subtle ink wear.
-Glints and action marks supply restrained humor without mascot faces.
-Six generated illustrations sit above the Dither field and below the resume, with
-different sizes, angles, opacity and stacking order. Below 1000px workspace width,
-they form a shallow layered strip above the document; phones show four stickers.
+The six job stickers reuse the user's selected orange-and-white comic artwork,
+with warm charcoal outlines, halftone shading, glints, and action marks.
+The atlas is `public/stickers/job-stickers-comic.png`, a three-column, two-row sheet.
+Stickers sit above Dither and below the resume, with distinct sizes, positions,
+angles, and stacking order. The stethoscope and laptop are larger anchors, while
+the wrench, chef's hat, hard hat, and paintbrush vary in size and vertical position.
+Below 1000px workspace width, all six form a staggered arrangement above the
+document. Phones retain all six at smaller, individually chosen sizes.
 
 - Engine: the already-installed GSAP and ScrollTrigger, explicitly requested for this effect.
 - Native preview-panel scrolling drives one timeline with 0.85-second scrub smoothing.

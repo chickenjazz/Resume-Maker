@@ -78,7 +78,7 @@ export default function Toolbar({
           className="btn btn-primary"
           onClick={onPrint}
         >
-          🖨️ Print / Save as PDF
+          💾 Save
         </button>
 
         <button

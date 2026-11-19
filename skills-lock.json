@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "skills": {
+    "ai-image-generation": {
+      "source": "gencraft-labs/skills",
+      "commit": "5d625f59c710d7a33316b50b302b7158cdee5971",
+      "sourceType": "github",
+      "skillPath": "ai-image-generation/SKILL.md",
+      "computedHash": "7b880ee9ea0ef160a90999972fe95705ba7a7788b59029bbaec7bb4f959730ae"
+    }
+  }
+}

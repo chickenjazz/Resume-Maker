@@ -8,6 +8,8 @@ import AppModal from './components/AppModal';
 import NotFoundPage from './components/NotFoundPage';
 import Dither from './components/Dither';
 import JobStickers from './components/JobStickers';
+import { Edit3, Eye } from 'lucide-react';
+import { Button } from '@/components/ui/button';
 
 const STORAGE_KEY = 'react_resume_data_v3';
 
@@ -32,7 +34,7 @@ export default function App() {
   });
 
   const [isEditing, setIsEditing] = useState(true);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [sidebarOpen, setSidebarOpen] = useState(() => !window.matchMedia('(max-width: 720px)').matches);
   const [saved, setSaved] = useState(false);
   const [modal, setModal] = useState(null);
   const previewRef = useRef(null);
@@ -228,8 +230,6 @@ export default function App() {
       <AppHeader
         sidebarOpen={sidebarOpen}
         onToggleSidebar={() => setSidebarOpen(o => !o)}
-        isEditing={isEditing}
-        onToggleEdit={() => setIsEditing(e => !e)}
         onPrint={handlePrint}
         onExport={handleExport}
         onImport={handleImport}
@@ -284,6 +284,17 @@ export default function App() {
               onAddItem={handleAddItem}
             />
           </main>
+      <Button className="edit-mode-toggle h-[52px] w-[52px] rounded-full p-0 transition-[transform,background-color] duration-200 ease-out" aria-label={isEditing ? 'Preview resume' : 'Edit resume'}
+        title={isEditing ? 'Preview resume' : 'Edit resume'}
+        onClick={() => {
+          // Commit contentEditable changes before switching out of editing mode.
+          if (document.activeElement instanceof HTMLElement) document.activeElement.blur();
+          setIsEditing(editing => !editing);
+        }}>
+        <span key={isEditing ? 'preview' : 'edit'} className="edit-mode-toggle__icon" aria-hidden="true">
+          {isEditing ? <Eye /> : <Edit3 />}
+        </span>
+      </Button>
         </div>
       </div>
 

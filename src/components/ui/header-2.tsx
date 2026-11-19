@@ -16,13 +16,14 @@ export type HeaderAction = {
 };
 
 type HeaderProps = {
+  leading?: React.ReactNode;
   brand?: React.ReactNode;
   links?: { label: string; href: string }[];
   actions?: HeaderAction[];
   scrollTarget?: React.RefObject<HTMLElement | null>;
 };
 
-export function Header({ brand, links = [], actions = [], scrollTarget }: HeaderProps) {
+export function Header({ leading, brand, links = [], actions = [], scrollTarget }: HeaderProps) {
   const [open, setOpen] = React.useState(false);
   const scrolled = useScroll(10, scrollTarget);
   const triggerRef = React.useRef<HTMLButtonElement>(null);
@@ -55,13 +56,16 @@ export function Header({ brand, links = [], actions = [], scrollTarget }: Header
         open && 'bg-background/90',
       )}>
         <nav aria-label="Resume actions" className="flex h-14 w-full items-center justify-between gap-3 px-4 lg:h-12 lg:px-2">
-          {brand ?? <WordmarkIcon className="h-6 w-auto" aria-label="Efferd" />}
+          <div className="flex min-w-0 items-center gap-3">
+            {leading}
+            {brand ?? <WordmarkIcon className="h-6 w-auto" aria-label="Efferd" />}
+          </div>
           <div className="hidden items-center gap-1 lg:flex">
             {links.map(link => <a key={link.label} className={buttonVariants({ variant: 'ghost' })} href={link.href}>{link.label}</a>)}
             {actions.map(action => actionButton(action))}
           </div>
           <Dialog.Trigger asChild>
-            <Button ref={triggerRef} size="icon" variant="outline" className="lg:hidden" aria-label="Open resume menu">
+            <Button ref={triggerRef} size="icon" variant="outline" className="shrink-0 lg:hidden" aria-label="Open resume menu">
               <MenuToggleIcon open={open} duration={300} />
             </Button>
           </Dialog.Trigger>

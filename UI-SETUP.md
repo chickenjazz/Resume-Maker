@@ -7,7 +7,7 @@ and `.tsx` files are checked by `npm run typecheck` and `npm run build`.
 - Shared UI: `src/components/ui/` (`@/components/ui`).
 - App-specific components: `src/components/`.
 - Utilities: `src/lib/utils.ts` (`@/lib/utils`).
-- Tailwind entry and orange theme tokens: `src/styles/globals.css`.
+- Tailwind entry and orange, white, and navy theme tokens: `src/styles/globals.css`.
 - Existing resume/editor styles: `src/index.css`, imported in the components layer.
 - Aliases: `tsconfig.json` and `vite.config.js`; shadcn settings: `components.json`.
 
@@ -27,8 +27,8 @@ npm run build
 Tailwind's Vite plugin is enabled. Its theme and utilities are imported separately;
 Preflight is omitted to retain the existing document typography, lists, and print
 layout. The existing CSS reset stays in use. New shared buttons set their border
-style explicitly. Orange UI tokens are distinct from the legacy `--brand-accent`
-tokens used throughout the editor.
+style explicitly. Navy action tokens control buttons and toggles; orange
+`--brand-accent` tokens remain on the branding and editor accents.
 
 For a fresh project, the shadcn CLI can scaffold Vite with `npx shadcn@latest init -t vite`.
 For an existing project, first configure Tailwind and the `@/` alias, then run
