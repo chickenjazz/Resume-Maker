@@ -320,7 +320,7 @@ export default function EditorPanel({
           return (
             <div
               key={key}
-              className={`section-toggle-card ${sectionVisible ? 'visible' : 'hidden'}`}
+              className={`section-toggle-card ${sectionVisible ? 'visible' : 'is-hidden'}`}
             >
               {/* Main Section Header */}
               <div className="section-toggle-card__main">
@@ -386,7 +386,7 @@ export default function EditorPanel({
 
                         <button
                           type="button"
-                          className={`btn-item-eye ${itemActive ? 'visible' : 'hidden'}`}
+                          className={`btn-item-eye ${itemActive ? 'visible' : 'is-hidden'}`}
                           aria-label={itemActive ? 'Hide item' : 'Show item'}
                           onClick={(e) => {
                             e.stopPropagation();

@@ -797,7 +797,8 @@ body {
   box-shadow: var(--shadow-sm);
 }
 
-.section-toggle-card.hidden {
+.section-toggle-card.is-hidden {
+  display: block;
   opacity: 0.6;
   background: var(--navy-50);
 }
@@ -938,7 +939,7 @@ body {
   color: var(--brand-accent);
 }
 
-.btn-item-eye.hidden {
+.btn-item-eye.is-hidden {
   color: var(--navy-400);
 }
 
@@ -2467,7 +2468,8 @@ body,
   box-shadow: none;
 }
 
-.section-toggle-card.hidden {
+.section-toggle-card.is-hidden {
+  display: block;
   opacity: 0.62;
   background: transparent;
 }
@@ -2881,7 +2883,7 @@ body {
   background: #ffffff;
 }
 
-.section-toggle-card.hidden:hover {
+.section-toggle-card.is-hidden:hover {
   border-left-color: #ded5ce;
 }
 
