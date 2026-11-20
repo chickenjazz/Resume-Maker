@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
-import { PanelLeftClose, PanelLeftOpen, Printer, Download, Upload, RotateCcw, Check } from 'lucide-react';
+import { PanelLeftClose, PanelLeftOpen, Download, Upload, RotateCcw, Check } from 'lucide-react';
 import { Header } from '@/components/ui/header-2';
 import { Button } from '@/components/ui/button';
+import { SaveIcon } from '@/components/ui/save-icon';
 
 export default function AppHeader({ sidebarOpen, onToggleSidebar, onPrint, onExport, onImport, onReset, saved, scrollTarget }) {
   const fileRef = useRef(null);
@@ -21,7 +22,7 @@ export default function AppHeader({ sidebarOpen, onToggleSidebar, onPrint, onExp
     { label: 'Export', icon: <Download />, onClick: onExport },
     { label: 'Import', icon: <Upload />, onClick: () => fileRef.current?.click() },
     { label: 'Reset', icon: <RotateCcw />, onClick: onReset },
-    { label: 'Save', icon: <Printer />, onClick: onPrint, variant: 'default' },
+    { label: 'Save', icon: <SaveIcon size={16} />, onClick: onPrint, variant: 'default' },
   ];
   return (
     <div className="workspace-header-shell">
