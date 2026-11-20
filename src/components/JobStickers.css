@@ -36,6 +36,10 @@
 .job-sticker--laptop { right: -24px; top: 42%; width: clamp(116px, 12cqw, 172px); }
 .job-sticker--hardhat { left: calc(var(--sticker-gutter) * 0.63 - 40px); top: 67%; width: clamp(80px, 8cqw, 110px); }
 .job-sticker--paintbrush { right: calc(var(--sticker-gutter) * 0.48 - 24px); top: 87%; width: clamp(64px, 6cqw, 86px); }
+.job-sticker--briefcase .job-sticker__art, .job-sticker--microscope .job-sticker__art, .job-sticker--graduation .job-sticker__art { background-image: url('/stickers/job-stickers-extra.png'); background-size: 300% 100%; }
+.job-sticker--briefcase { right: 1%; top: 27%; width: 86px; }
+.job-sticker--microscope { left: 1%; top: 54%; width: 90px; }
+.job-sticker--graduation { right: 2%; top: 72%; width: 80px; }
 
 @container (max-width: 1000px) {
   .preview-workspace .preview-area { padding-top: 140px; }
@@ -46,16 +50,22 @@
   .job-sticker--laptop { left: 54%; top: 42px; width: 104px; }
   .job-sticker--hardhat { left: 77%; top: -7px; width: 78px; }
   .job-sticker--paintbrush { left: auto; right: 2%; top: 81px; width: 48px; }
+  .job-sticker--briefcase { left: -10px; top: 30%; width: 70px; }
+  .job-sticker--microscope { left: auto; right: -10px; top: 50%; width: 72px; }
+  .job-sticker--graduation { left: -8px; top: 75%; width: 66px; }
 }
 
 @container (max-width: 540px) {
-  .preview-workspace .preview-area { padding-top: 124px; }
-  .job-sticker--stethoscope { left: -12px; top: 21px; width: 76px; }
-  .job-sticker--wrench { left: 23%; top: 82px; width: 38px; }
-  .job-sticker--chef { left: 31%; top: -8px; width: 62px; }
-  .job-sticker--laptop { left: 49%; top: 48px; width: 70px; }
-  .job-sticker--hardhat { left: auto; right: -8px; top: 6px; width: 66px; }
-  .job-sticker--paintbrush { left: auto; right: 6%; top: 87px; width: 32px; }
+  .preview-workspace .preview-area { padding: 34px 26px 24px; }
+  .job-sticker--stethoscope { left: -8px; top: 2%; width: 52px; }
+  .job-sticker--wrench { left: auto; right: -8px; top: 12%; width: 48px; }
+  .job-sticker--chef { left: -10px; top: 24%; width: 52px; }
+  .job-sticker--laptop { left: auto; right: -12px; top: 35%; width: 58px; }
+  .job-sticker--hardhat { left: -10px; right: auto; top: 48%; width: 50px; }
+  .job-sticker--paintbrush { left: auto; right: -8px; top: 60%; width: 44px; }
+  .job-sticker--briefcase { left: -10px; right: auto; top: 72%; width: 52px; }
+  .job-sticker--microscope { left: auto; right: -8px; top: 80%; width: 50px; }
+  .job-sticker--graduation { left: -8px; right: auto; top: 91%; width: 48px; }
 }
 
 @media print {
