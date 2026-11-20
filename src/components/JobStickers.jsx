@@ -15,6 +15,7 @@ const stickers = [
   { name: 'briefcase', cell: '0% 0%', angle: 13, depth: 0.7 },
   { name: 'microscope', cell: '50% 0%', angle: -12, depth: 0.9 },
   { name: 'graduation', cell: '100% 0%', angle: 18, depth: 0.55 },
+  { name: 'architect', cell: '50% 50%', angle: -12, depth: 0.8 },
 ];
 
 export default function JobStickers({ scrollerRef }) {
