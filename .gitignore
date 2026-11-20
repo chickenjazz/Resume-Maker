@@ -29,3 +29,5 @@ Thumbs.db
 
 # Miscellaneous
 misc/
+
+.playwright-mcp
